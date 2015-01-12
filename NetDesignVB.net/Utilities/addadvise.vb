@@ -45,8 +45,8 @@ Module DemoAddAdviseSample
                     addedDocument = theApplication.Documents.Add("")
                 End If
 
-                Call openDocument(theApplication, "F:\Local\NetDesign\NetDesign Template\Stencils\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRW)
-                Call openDocument(theApplication, "F:\Local\NetDesign\NetDesign Template\Stencils\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
+                Call openDocument(theApplication, "Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRW)
+                Call openDocument(theApplication, "NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
                 'Call openDocument(theApplication, "G:\Projects\ATLASTDAQNetworking\TDAQ Connectivity\0_NetDesign Visio\New Tool\Stencils\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRO)
                 'Call openDocument(theApplication, "G:\Projects\ATLASTDAQNetworking\TDAQ Connectivity\0_NetDesign Visio\New Tool\Stencils\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
                 
