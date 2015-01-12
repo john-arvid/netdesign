@@ -51,6 +51,8 @@ Module Report
 
         Call WriteReportToFile(ShapeInformation, TextFile)
 
+        MsgBox("Report has been created and saved: " + TextFile, MsgBoxStyle.OkOnly)
+
     End Sub
 
     Private Sub GetInformation(ByRef shape As Visio.Shape, ByRef shapeInformation As StringBuilder, ByVal seperator As String, ByRef page As Visio.Page)

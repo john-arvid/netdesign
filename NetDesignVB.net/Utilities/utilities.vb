@@ -283,15 +283,15 @@ Module Utilities
 
 
 
-            OtherDocument = Globals.ThisAddIn.Application.Documents.Item("Common.vsdx")
+        OtherDocument = Globals.ThisAddIn.Application.Documents.Item("Common.vsdx")
 
-            RackMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Rack")
-            SwitchMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Switch")
-            WireMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Wire")
+        RackMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Rack")
+        SwitchMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Switch")
+        WireMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Wire")
         OPCMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("OPC")
         MasterBundle = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Wire Bundle")
 
-            ProgressBar.Show()
+        ProgressBar.Show()
 
         Dim PositionY3 = 10.8
         Dim Count As Integer = Document.Pages.Count
