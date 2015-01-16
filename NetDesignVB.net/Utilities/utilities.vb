@@ -602,5 +602,11 @@ Module Utilities
     End Sub
 
 
+    Public Sub PreparePage(ByRef page As Visio.Page)
+
+        page.PageSheet.Cells("DrawingSizeType").Formula = "=3"
+        page.PageSheet.Cells("DrawingResizeType").Formula = "=2"
+
+    End Sub
 
 End Module

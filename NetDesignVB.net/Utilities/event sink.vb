@@ -191,7 +191,15 @@ Imports System
 
                     Call MarkerHandler(subjectApplication)
 
+                    ' Page added event
+                Case CShort(Microsoft.Office.Interop.Visio.VisEventCodes.visEvtPage) + visEvtAdd
 
+                    ' Subject object is a Page
+                    subjectPage = CType(subject, Microsoft.Office.Interop.Visio.Page)
+                    subjectApplication = subjectPage.Application
+                    name = subjectPage.Name
+
+                    Call PreparePage(subjectPage)
 
 
                     '    ' Document event codes

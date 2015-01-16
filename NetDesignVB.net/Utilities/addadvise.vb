@@ -40,19 +40,12 @@ Module DemoAddAdviseSample
 
                 
 
-                ' Create a new drawing.
-                If Globals.ThisAddIn.Application.Documents.Count = 0 Then
-                    addedDocument = theApplication.Documents.Add("")
-                End If
 
-                Call openDocument(theApplication, "C:\Users\NetDesign\Desktop\NetDesignVB.net\NetDesignVB.net\bin\Debug\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRW)
-                Call openDocument(theApplication, "C:\Users\NetDesign\Desktop\NetDesignVB.net\NetDesignVB.net\bin\Debug\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
                 'Call openDocument(theApplication, "G:\Projects\ATLASTDAQNetworking\TDAQ Connectivity\0_NetDesign Visio\New Tool\Stencils\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRO)
                 'Call openDocument(theApplication, "G:\Projects\ATLASTDAQNetworking\TDAQ Connectivity\0_NetDesign Visio\New Tool\Stencils\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
                 
 
-                ' Add ruleset
-                Call AddOrUpdateRuleSet()
+                
 
 
                 ' Get the EventList collection of the application.
@@ -60,8 +53,8 @@ Module DemoAddAdviseSample
 
                 eventsApplication = theApplication.EventList
 
-                ' Get the EventList collection of this document.
-                eventsDocument = addedDocument.EventList
+                '' Get the EventList collection of this document.
+                'eventsDocument = Globals.ThisAddIn.Application.ActiveDocument.EventList
 
                 Globals.ThisAddIn.Application.EventsEnabled = True
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -83,16 +76,16 @@ Module DemoAddAdviseSample
                 eventsApplication.AddAdvise(CShort(Visio.VisEventCodes.visEvtDel + Visio.VisEventCodes.visEvtConnect), eventHandler, "", "ConnectionRemoved")
 
                 ' Add the BeforeShapeDelete event.
-                eventsApplication.AddAdvise(CShort(Microsoft.Office.Interop.Visio. _
-                    VisEventCodes.visEvtDel + _
-                    Microsoft.Office.Interop.Visio.VisEventCodes.visEvtShape), _
-                    eventHandler, "", "BeforeShapeDelete")
+                eventsApplication.AddAdvise(CShort(Microsoft.Office.Interop.Visio.VisEventCodes.visEvtDel + Microsoft.Office.Interop.Visio.VisEventCodes.visEvtShape), eventHandler, "", "BeforeShapeDelete")
 
                 ' Add the before page deleted event.
                 eventsApplication.AddAdvise(CShort(Visio.VisEventCodes.visEvtDel + Visio.VisEventCodes.visEvtPage), eventHandler, "", "BeforePageDelete")
 
                 ' Add the markerevent. This is used when a shapesheet call is made.
                 eventsApplication.AddAdvise(CShort(Visio.VisEventCodes.visEvtMarker + Visio.VisEventCodes.visEvtApp), eventHandler, "", "Marker")
+
+                ' Add the PageAdded event.
+                eventsApplication.AddAdvise(CShort(Microsoft.Office.Interop.Visio.VisEventCodes.visEvtPage + visEvtAdd), eventHandler, "", "PageAdded")
 
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -101,11 +94,6 @@ Module DemoAddAdviseSample
                 '    VisEventCodes.visEvtCodeQueryCancelSelDel), _
                 '    eventHandler, "", "")
 
-
-                '' Add the PageAdded event.
-                'eventsDocument.AddAdvise(CShort(Microsoft.Office.Interop.Visio. _
-                '    VisEventCodes.visEvtPage + visEvtAdd), _
-                '    eventHandler, "", "")
 
 
                 '' Add the BeforeDocumentClose event.
