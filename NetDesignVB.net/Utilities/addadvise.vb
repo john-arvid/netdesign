@@ -53,6 +53,7 @@ Module DemoAddAdviseSample
 
                 eventsApplication = theApplication.EventList
 
+
                 '' Get the EventList collection of this document.
                 'eventsDocument = Globals.ThisAddIn.Application.ActiveDocument.EventList
 

@@ -30,12 +30,14 @@
                 Call CreateReport(Page, AllWires)
                 GC.Collect()
             Next
-        Else
+        ElseIf (CheckedListBox1.CheckedItems.Count >= 1) Then
             For Each Item In CheckedListBox1.CheckedItems
                 Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.Item(Item.ToString())
                 Call CreateReport(Page, AllWires)
                 GC.Collect()
             Next
+        Else
+            MsgBox("Nothing was selected, I do nothing!", MsgBoxStyle.OkOnly)
 
         End If
 
