@@ -8,7 +8,7 @@
         Pages = Globals.ThisAddIn.Application.ActiveDocument.Pages
 
         For Each Page In Pages
-            CheckedListBox1.Items.Add(Page.Name)
+            CheckedListBoxPages.Items.Add(Page.Name)
         Next
 
     End Sub
@@ -30,8 +30,8 @@
                 Call CreateReport(Page, AllWires)
                 GC.Collect()
             Next
-        ElseIf (CheckedListBox1.CheckedItems.Count >= 1) Then
-            For Each Item In CheckedListBox1.CheckedItems
+        ElseIf (CheckedListBoxPages.CheckedItems.Count >= 1) Then
+            For Each Item In CheckedListBoxPages.CheckedItems
                 Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.Item(Item.ToString())
                 Call CreateReport(Page, AllWires)
                 GC.Collect()
@@ -45,9 +45,17 @@
 
     Private Sub CheckBoxWholeDocument_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxWholeDocument.CheckedChanged
         If CheckBoxWholeDocument.Checked Then
-            CheckedListBox1.Enabled = False
+            CheckedListBoxPages.Enabled = False
         Else
-            CheckedListBox1.Enabled = True
+            CheckedListBoxPages.Enabled = True
         End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub CheckedListBoxData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CheckedListBoxData.SelectedIndexChanged
+
     End Sub
 End Class
