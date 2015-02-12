@@ -111,7 +111,7 @@
             ChassisPage.Cells("PinX").Formula = "=" & CStr(pinX)
             ChassisPage.Cells("PinY").Formula = "=" & CStr(pinY)
             ChassisPage.CellsSRC(Visio.VisSectionIndices.visSectionCharacter, 0, Visio.VisCellIndices.visCharacterSize).Formula = "=" & _
-        CStr(ChassisSwitchBase.CellsSRC(Visio.VisSectionIndices.visSectionCharacter, 0, Visio.VisCellIndices.visCharacterSize).Result("")) & "*Height/" & CStr(H)
+                CStr(ChassisSwitchBase.CellsSRC(Visio.VisSectionIndices.visSectionCharacter, 0, Visio.VisCellIndices.visCharacterSize).Result("")) & "*Height/" & CStr(H)
 
             ChassisPage.Text = "Page-" + i.ToString()
             ChassisPage.Cells("LockTextEdit").Formula = 1
@@ -146,6 +146,12 @@
 
             HomeShape.Hyperlinks("OffPageConnector").SubAddress = CurrentPage.Name
 
+            'Remove the shape text lock, force since it's guarded
+            HomeShape.CellsU("LockTextEdit").FormulaForce = "GUARD(0)"
+            HomeShape.Text = CurrentPage.Name
+            HomeShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
+
+
             If form.CheckBoxVertically.Checked Then
                 pinX = 0.05 * Page.Shapes("ThePage").Cells("PageWidth").Result("")
                 pinY = 0.5 * Page.Shapes("ThePage").Cells("PageHeight").Result("")
@@ -168,16 +174,23 @@
 
             Next
             If i <> form.TextBoxPages.Text Then
+                'Remove the shape text lock, force since it's guarded
+                NextPageShape.CellsU("LockTextEdit").FormulaForce = "GUARD(0)"
                 NextPageShape.Hyperlinks("OffPageConnector").SubAddress = form.TextBoxName.Text + ":Page " + (i + 1).ToString()
                 NextPageShape.Cells("User.TextTitle").Formula = """" + NextPageShape.Hyperlinks("OffPageConnector").SubAddress + """"
-                'NextPageShape.Text = NextPageShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
+                NextPageShape.Text = NextPageShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
+                NextPageShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
             End If
 
             If i <> 1 Then
+                'Remove the shape text lock, force since it's guarded
+                PreviousPageShape.CellsU("LockTextEdit").FormulaForce = "GUARD(0)"
                 PreviousPageShape.Hyperlinks("OffPageConnector").SubAddress = form.TextBoxName.Text + ":Page " + (i - 1).ToString()
                 PreviousPageShape.Cells("User.TextTitle").Formula = """" + PreviousPageShape.Hyperlinks("OffPageConnector").SubAddress + """"
-                'PreviousPageShape.Text = PreviousPageShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
+                PreviousPageShape.Text = PreviousPageShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
+                PreviousPageShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
             End If
+
 
         Next
 
