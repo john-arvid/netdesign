@@ -68,7 +68,7 @@ Module DemoAddAdviseSample
                   eventHandler, "", "ShapeAdded")
 
                 ' Add the cells formula changed event.
-                eventsApplication.AddAdvise(CShort(Microsoft.Office.Interop.Visio.VisEventCodes.visEvtFormula + Visio.VisEventCodes.visEvtMod), eventHandler, "", "CellChanged")
+                eventsApplication.AddAdvise(CShort(Microsoft.Office.Interop.Visio.VisEventCodes.visEvtFormula + Visio.VisEventCodes.visEvtMod), eventHandler, "", "FormulaChanged")
 
                 ' Add the connection made event.
                 eventsApplication.AddAdvise(CShort(visEvtAdd + Visio.VisEventCodes.visEvtConnect), eventHandler, "", "ConnectionMade")

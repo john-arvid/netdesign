@@ -132,7 +132,7 @@
 
         Call Globals.ThisAddIn.Application.DoCmd(Visio.VisUICmds.visCmdObjectGroup)
         SwitchShapeParent = switchShape.Parent
-        SwitchShapeParent.CellsSRC(Visio.VisSectionIndices.visSectionCharacter, 0, Visio.VisCellIndices.visCharacterSize).Formula = "=28*MIN(Height,Width)/(2*72)"
+        'SwitchShapeParent.CellsSRC(Visio.VisSectionIndices.visSectionCharacter, 0, Visio.VisCellIndices.visCharacterSize).Formula = "=28*MIN(Height,Width)/(2*72)"
 
 
         ' Copy shape sheet data from the switch to the grouped container
@@ -266,7 +266,7 @@
 
         For Each Port In portList
             Port.Cells("User.RackLocation").Formula = "=" + switchParent.Name + "!User.RackLocation"
-            Port.Cells("User.SwitchName").Formula = "=" + switchParent.Name + "!User.TextTitle"
+            Port.Cells("User.SwitchName").Formula = "=" + switchParent.Name + "!Prop.Name"
             Port.Cells("User.UPosition").Formula = "=" + switchParent.Name + "!Prop.UPosition"
             Port.Cells("User.SwitchType").Formula = "=" + switchParent.Name + "!User.msvShapeCategories"
         Next
@@ -283,7 +283,7 @@
             Shape = Page.Shapes.Item(i)
             If Shape.CellExists("User.msvShapeCategories", 0) Then
                 If Shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
-                    If Shape.Cells("User.SwitchName").ResultStr("") = switchShape.Cells("User.TextTitle").ResultStr("") Then
+                    If Shape.Cells("User.SwitchName").ResultStr("") = switchShape.Cells("Prop.Name").ResultStr("") Then
                         Shape.Delete()
                     End If
                 End If

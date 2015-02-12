@@ -100,10 +100,6 @@ Imports System
 
                     ' Cell event codes
                 Case CShort(Microsoft.Office.Interop.Visio.VisEventCodes. _
-                    visEvtCell) + _
-                    CShort(Microsoft.Office.Interop.Visio.VisEventCodes. _
-                    visEvtMod), _
-                    CShort(Microsoft.Office.Interop.Visio.VisEventCodes. _
                     visEvtFormula) + _
                     CShort(Microsoft.Office.Interop.Visio.VisEventCodes. _
                     visEvtMod)

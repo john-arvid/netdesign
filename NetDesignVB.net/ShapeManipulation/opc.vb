@@ -151,22 +151,40 @@
 
         OtherOPC = GetOtherOPC(OPC)
 
-        OtherOPC.Cells("User.MediaType").Formula = """" + wireShape.Cells("Prop.Media").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OtherOPC.Cells("User.MediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OtherOPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells("Prop.TransmissionSpeed").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaType").Formula = """" + wireShape.Cells("Prop.Media").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells("Prop.TransmissionSpeed").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+
+        OtherOPC.Cells("User.OtherMediaType").Formula = """" + wireShape.Cells("Prop.Media").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaSpeed").Formula = """" + wireShape.Cells("Prop.TransmissionSpeed").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
         If wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "Port").Length = 1 Then
+
             PortShape = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "Port")(0))
-            OtherOPC.Cells("User.RackLocation").Formula = """" + PortShape.Cells("User.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OtherOPC.Cells("User.UPosition").Formula = """" + PortShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OtherOPC.Cells("User.SwitchType").Formula = """" + PortShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OtherOPC.Cells("User.PortName").Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OtherOPC.Cells("User.SwitchName").Formula = """" + PortShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+
+            OPC.Cells("User.RackLocation").Formula = """" + PortShape.Cells("User.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells("User.UPosition").Formula = """" + PortShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells("User.SwitchType").Formula = """" + PortShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells("User.PortName").Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells("User.SwitchName").Formula = """" + PortShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+
+            OtherOPC.Cells("User.OtherUPosition").Formula = """" + PortShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OtherOPC.Cells("User.OtherSwitchType").Formula = """" + PortShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OtherOPC.Cells("User.OtherPortName").Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OtherOPC.Cells("User.OtherSwitchName").Formula = """" + PortShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+
         End If
 
+        
 
     End Sub
-
+    ''' <summary>
+    ''' Update the text of the OPC's when a wire is being connected
+    ''' </summary>
+    ''' <param name="OPC">The OPC that the wire is being connected to</param>
+    ''' <param name="wireShape">The wire that is being connected to the OPC</param>
+    ''' <remarks></remarks>
     Private Sub UpdateText(ByRef OPC As Visio.Shape, ByRef wireShape As Visio.Shape)
 
         Dim OtherOPC As Visio.Shape
@@ -175,15 +193,29 @@
         Dim SwitchName As String
         Dim PortName As String
 
+        'Get the other OPC
         OtherOPC = GetOtherOPC(OPC)
 
+        'Get the names that will be used, Other means the opposite OPC's. 
         SwitchName = OPC.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString)
         PortName = OPC.Cells("User.PortName").ResultStr(Visio.VisUnitCodes.visUnitsString)
         OtherSwitchName = OtherOPC.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString)
         OtherPortName = OtherOPC.Cells("User.PortName").ResultStr(Visio.VisUnitCodes.visUnitsString)
 
+        'Change the text of both OPC's
         OPC.Text = OtherOPC.ContainingPage.Name + ":" + OtherSwitchName + ":" + OtherPortName
         OtherOPC.Text = OPC.ContainingPage.Name + ":" + SwitchName + ":" + PortName
+
+
+        'Check if the otherOPC has a wire connected, update that wire's label if so
+        If OtherOPC.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll1D, "").Length = 1 Then
+            Dim OtherWireShape As Visio.Shape
+
+            OtherWireShape = OtherOPC.ContainingPage.Shapes.ItemFromID(OtherOPC.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll1D, "")(0))
+
+            Call UpdateLabel(OtherOPC, OtherWireShape)
+
+        End If
 
     End Sub
 

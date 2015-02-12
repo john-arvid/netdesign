@@ -155,7 +155,7 @@ Module Utilities
         ' Trigger the validation of the document when a formula is changed
         'Globals.ThisAddIn.Application.ActiveDocument.Validation.Validate()
 
-        If shape.CellExists("User.msvShapeCategories", 0) AndAlso (cell.Section = visSectionUser OrElse cell.Section = visSectionProp) Then
+        If shape.CellExists("User.msvShapeCategories", 0) AndAlso (cell.Section = visSectionProp) Then
 
             If shape.Cells("User.msvShapeCategories").ResultStr("") = "Switch" Then
                 Call UpdateSwitch(shape, cell)
@@ -195,7 +195,12 @@ Module Utilities
         toShape.Cells("User.SwitchName").Formula = """" + fromShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="connections"></param>
+    ''' <param name="connecting"></param>
+    ''' <remarks></remarks>
     Public Sub ConnectionChanged(ByRef connections As Visio.Connects, ByVal connecting As Boolean)
 
         'TODO: Add when disconnecting that the wire looses information.
@@ -214,9 +219,15 @@ Module Utilities
         Call ValidateWireConnection(connections)
         'TODO: this is happening at every connection. should it, or doesnt it matter?
         Call SynchWire(connections.ToSheet, connections.FromSheet)
+        Call UpdateLabel(connections.ToSheet, connections.FromSheet)
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="connectedShape"></param>
+    ''' <param name="wireShape"></param>
+    ''' <remarks></remarks>
     Public Sub SynchWire(ByRef connectedShape As Visio.Shape, ByRef wireShape As Visio.Shape)
 
         If connectedShape.Cells("User.msvShapeCategories").ResultStr("") = "Port" Then
@@ -228,6 +239,39 @@ Module Utilities
         End If
 
         wireShape.BringToFront()
+
+    End Sub
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="connectedShape"></param>
+    ''' <param name="wireShape"></param>
+    ''' <remarks></remarks>
+    Public Sub UpdateLabel(ByRef connectedShape As Visio.Shape, ByRef wireShape As Visio.Shape)
+        Dim IncomingNode As Visio.Shape
+        Dim OutgoingNode As Visio.Shape
+
+
+        'Remove the shape text lock, force since it's guarded
+        wireShape.CellsU("LockTextEdit").FormulaForce = "GUARD(0)"
+
+        If wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "").Length = 2 Then
+            IncomingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0))
+            OutgoingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "")(0))
+
+            If IncomingNode.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
+                wireShape.Text = IncomingNode.Text + "/" + OutgoingNode.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text
+            ElseIf OutgoingNode.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
+                wireShape.Text = OutgoingNode.Text + "/" + IncomingNode.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+            End If
+        Else
+            wireShape.Text = "Not complete yet!"
+        End If
+
+
+        'Add the shape text lock, force since it's guarded
+        wireShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
 
     End Sub
 
@@ -277,8 +321,8 @@ Module Utilities
         Dim WireID As Integer = 100000
         Dim ProgressBar As New ProgressBar()
 
-        Dim NumberOfPorts As String = "48"
-        Dim NumberOfPages As Integer = 3
+        Dim NumberOfPorts As String = "24"
+        Dim NumberOfPages As Integer = 4
 
 
 
@@ -329,14 +373,14 @@ Module Utilities
             RackShapeCopy.Cells("Prop.RackLocation").Formula = """" + NextPage.Name + """"
 
             'Create previous switch
-                PreviousSwitch = Document.Pages.Item(i + 1).Drop(SwitchMaster, 4, 1.9)
+            PreviousSwitch = Document.Pages.Item(i + 1).Drop(SwitchMaster, 4, 1.9)
             Call CreateSwitch(PreviousSwitch, "Test1", "TestModel1", NumberOfPorts, "2", "Copper", "Data network", False, Document, NextPage)
-                PreviousSwitch.Cells("Width").Formula = """" + "181.3453mm" + """"
-                PreviousSwitch.Cells("Height").Formula = """" + "21.7614mm" + """"
+            PreviousSwitch.Cells("Width").Formula = """" + "181.3453mm" + """"
+            PreviousSwitch.Cells("Height").Formula = """" + "21.7614mm" + """"
 
 
             'Create all the OPC for the switch goind to the next page
-            For j As Integer = 1 To 48
+            For j As Integer = 1 To NumberOfPorts
 
                 If j Mod 9 = 1 Then
                     PositionY = 2.0
@@ -443,10 +487,10 @@ Module Utilities
         Next
 
 
-            ProgressBar.Close()
+        ProgressBar.Close()
 
 
-        End Sub
+    End Sub
 
 
     Private Sub TransferOPCInfo(ByRef OPCShape As Visio.Shape, ByRef OPCCopy As Visio.Shape, _
