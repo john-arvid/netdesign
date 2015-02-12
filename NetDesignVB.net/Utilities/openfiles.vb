@@ -1,5 +1,10 @@
 ﻿Module openFiles
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="applicationObj"></param>
+    ''' <param name="stencilName"></param>
+    ''' <remarks></remarks>
     Public Sub openStencil(ByVal applicationObj As Visio.Application, ByVal stencilName As String)
 
         Try
@@ -11,7 +16,13 @@
         End Try
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="applicationObj"></param>
+    ''' <param name="documentName"></param>
+    ''' <param name="openSaveArguments"></param>
+    ''' <remarks></remarks>
     Public Sub openDocument(ByVal applicationObj As Visio.Application, ByVal documentName As String, Optional ByVal openSaveArguments As Integer = Visio.VisOpenSaveArgs.visOpenDocked)
 
         Try

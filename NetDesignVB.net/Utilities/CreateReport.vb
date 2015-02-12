@@ -3,7 +3,12 @@
 Module Report
 
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="page"></param>
+    ''' <param name="allWires"></param>
+    ''' <remarks></remarks>
     Public Sub CreateReport(ByRef page As Visio.Page, ByVal allWires As Boolean)
 
         Dim MyDocumentsPath As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
@@ -54,7 +59,14 @@ Module Report
         MsgBox("Report has been created and saved: " + TextFile, MsgBoxStyle.OkOnly)
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <param name="shapeInformation"></param>
+    ''' <param name="seperator"></param>
+    ''' <param name="page"></param>
+    ''' <remarks></remarks>
     Private Sub GetInformation(ByRef shape As Visio.Shape, ByRef shapeInformation As StringBuilder, ByVal seperator As String, ByRef page As Visio.Page)
         Dim ToShape As Visio.Shape
         Dim ToShapeId As Integer
@@ -87,7 +99,12 @@ Module Report
         shapeInformation.Append(shape.Cells("Prop.WireID").ResultStr(""))
     End Sub
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="textString"></param>
+    ''' <param name="seperator"></param>
+    ''' <remarks></remarks>
     Private Sub InitiateReport(ByRef textString As StringBuilder, ByVal seperator As String)
 
         textString.Append("Rack Name Destination")
@@ -110,7 +127,12 @@ Module Report
         textString.AppendLine()
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shapeInformation"></param>
+    ''' <param name="textFile"></param>
+    ''' <remarks></remarks>
     Private Sub WriteReportToFile(ByRef shapeInformation As StringBuilder, ByVal textFile As String)
 
         Using Outfile As System.IO.StreamWriter = New System.IO.StreamWriter(textFile, False)

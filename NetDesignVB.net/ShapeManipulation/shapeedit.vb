@@ -1,5 +1,10 @@
 ﻿Module ShapeEdit
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="switchShape"></param>
+    ''' <param name="cell"></param>
+    ''' <remarks></remarks>
     Public Sub UpdateSwitch(ByRef switchShape As Visio.Shape, ByRef cell As Visio.Cell)
 
         Dim Shape As Visio.Shape
@@ -20,7 +25,12 @@
         Next
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <param name="cell"></param>
+    ''' <remarks></remarks>
     Public Sub UpdatePort(ByRef shape As Visio.Shape, ByRef cell As Visio.Cell)
 
         Dim WireShape As Visio.Shape
@@ -39,7 +49,12 @@
         End If
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="wireShape"></param>
+    ''' <param name="cell"></param>
+    ''' <remarks></remarks>
     Public Sub UpdateWire(ByRef wireShape As Visio.Shape, Optional ByRef cell As Visio.Cell = Nothing)
 
         Dim OtherShape As Visio.Shape
@@ -72,7 +87,12 @@
         End If
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="rackShape"></param>
+    ''' <param name="cell"></param>
+    ''' <remarks></remarks>
     Public Sub UpdateRack(ByRef rackShape As Visio.Shape, ByRef cell As Visio.Cell)
 
 
@@ -88,7 +108,12 @@
         End If
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <param name="cell"></param>
+    ''' <remarks></remarks>
     Public Sub UpdateShapeName(ByRef shape As Visio.Shape, ByRef cell As Visio.Cell)
 
         Dim OldText As String

@@ -1,7 +1,11 @@
 ﻿Module OPC
 
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="OPCShape"></param>
+    ''' <remarks></remarks>
     Public Sub HandleOffPageConnector(OPCShape As Visio.Shape)
         Static NoDialog As Integer = 0
 
@@ -47,7 +51,16 @@
         OPCForm = Nothing
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="OPCShape"></param>
+    ''' <param name="otherDocumentName"></param>
+    ''' <param name="pageName"></param>
+    ''' <param name="ODC"></param>
+    ''' <param name="newPageName"></param>
+    ''' <param name="OPCType"></param>
+    ''' <remarks></remarks>
     Private Sub CreateOffPageConnector(ByRef OPCShape As Visio.Shape, ByVal otherDocumentName As String, ByVal pageName As String, ByVal ODC As Boolean, ByVal newPageName As String, ByVal OPCType As String)
 
         Dim OPCMaster As Visio.Master
@@ -115,9 +128,10 @@
     End Sub
 
     ''' <summary>
-    ''' Update the OPC when it is connected to a wire
+    ''' 
     ''' </summary>
-    ''' <param name="connections">The shapes that is connected</param>
+    ''' <param name="OPC"></param>
+    ''' <param name="wireShape"></param>
     ''' <remarks></remarks>
     Public Sub UpdateOPC(ByRef OPC As Visio.Shape, ByRef wireShape As Visio.Shape)
 
@@ -137,7 +151,7 @@
 
     End Sub
 
-    
+
 
     ''' <summary>
     ''' 
@@ -176,7 +190,7 @@
 
         End If
 
-        
+
 
     End Sub
     ''' <summary>
@@ -218,7 +232,12 @@
         End If
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="OPC"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function GetOtherOPC(ByVal OPC As Visio.Shape) As Visio.Shape
         Dim Document As Visio.Document
         Dim Page As Visio.Page
@@ -256,7 +275,11 @@
         Return OtherOPC
 
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="OPC"></param>
+    ''' <remarks></remarks>
     Public Sub DeleteOtherOPC(ByRef OPC As Visio.Shape)
 
         Dim OtherOPC As Visio.Shape = Nothing
@@ -271,7 +294,11 @@
             OtherOPC.Delete()
         End If
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="page"></param>
+    ''' <remarks></remarks>
     Public Sub DeleteAllOPCOnPage(ByRef page As Visio.Page)
 
         Dim Shape As Visio.Shape
@@ -282,7 +309,7 @@
             Shape = page.Shapes.Item(i)
             If Shape.CellExists("User.msvShapeCategories", 0) Then
                 If Shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
-                        Shape.Delete()
+                    Shape.Delete()
                 End If
             End If
         Next

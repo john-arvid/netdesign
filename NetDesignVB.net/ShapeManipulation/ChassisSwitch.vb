@@ -1,5 +1,9 @@
 ﻿Module ChassisSwitch
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="chassisSwitchShape"></param>
+    ''' <remarks></remarks>
     Public Sub HandleChassisSwitch(ByRef chassisSwitchShape As Visio.Shape)
 
         If CountShapesOnPageByName("Rack") < 1 Then
@@ -30,7 +34,12 @@
         ChassisSwitchForm = Nothing
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="chassisSwitchShape"></param>
+    ''' <param name="form"></param>
+    ''' <remarks></remarks>
     Private Sub CreateChassisSwitch(ByRef chassisSwitchShape As Visio.Shape, form As NDAskForChassis)
         Dim Page As Visio.Page
         Dim CurrentPage As Visio.Page

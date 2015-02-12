@@ -274,7 +274,11 @@ Module Utilities
         wireShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetRackShape()
         Dim RackShape As Visio.Shape = Nothing
         Dim Shape As Visio.Shape
@@ -293,7 +297,10 @@ Module Utilities
 
         Return RackShape
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub Magic()
 
         Dim Document As Visio.Document = Globals.ThisAddIn.Application.Documents.Item(1)
@@ -492,7 +499,15 @@ Module Utilities
 
     End Sub
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="OPCShape"></param>
+    ''' <param name="OPCCopy"></param>
+    ''' <param name="ODC"></param>
+    ''' <param name="otherDocumentPath"></param>
+    ''' <param name="firstDocumentPath"></param>
+    ''' <remarks></remarks>
     Private Sub TransferOPCInfo(ByRef OPCShape As Visio.Shape, ByRef OPCCopy As Visio.Shape, _
                                 ByVal ODC As Boolean, Optional ByVal otherDocumentPath As String = "", _
                                 Optional ByVal firstDocumentPath As String = "")
@@ -518,7 +533,10 @@ Module Utilities
     End Sub
 
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub ChangeMasterCellsAndSections()
 
         Dim Stencil As Visio.Document = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx")
@@ -552,7 +570,12 @@ Module Utilities
 
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <param name="section"></param>
+    ''' <remarks></remarks>
     Private Sub CheckAndAddSection(ByRef shape As Visio.Shape, ByVal section As Visio.VisSectionIndices)
 
         If Not shape.SectionExists(section, 0) Then
@@ -583,7 +606,13 @@ Module Utilities
 
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <param name="cellName"></param>
+    ''' <param name="section"></param>
+    ''' <remarks></remarks>
     Private Sub DeleteCellRow(ByRef shape As Visio.Shape, ByVal cellName As String, ByVal section As Visio.VisSectionIndices)
 
         Dim SectionName As String = ""
@@ -600,7 +629,11 @@ Module Utilities
 
     End Sub
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="subject"></param>
+    ''' <remarks></remarks>
     Public Sub MarkerHandler(ByRef subject As Visio.Application)
 
         MsgBox("This is not implemented yet")
@@ -630,7 +663,11 @@ Module Utilities
 
     End Sub
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <remarks></remarks>
     Public Sub DeleteChassisPages(ByRef shape As Visio.Shape)
 
         Dim Page As Visio.Page
@@ -645,7 +682,11 @@ Module Utilities
 
     End Sub
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="page"></param>
+    ''' <remarks></remarks>
     Public Sub PreparePage(ByRef page As Visio.Page)
 
         page.PageSheet.Cells("DrawingSizeType").Formula = "=3"

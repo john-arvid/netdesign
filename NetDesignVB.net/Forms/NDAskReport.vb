@@ -1,6 +1,11 @@
 ﻿Public Class NDAskReport
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub NDAskReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim Page As Visio.Page
         Dim Pages As Visio.Pages
@@ -12,7 +17,12 @@
         Next
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim Page As Visio.Page
         Dim Pages As Visio.Pages
@@ -42,7 +52,12 @@
         End If
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub CheckBoxWholeDocument_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxWholeDocument.CheckedChanged
         If CheckBoxWholeDocument.Checked Then
             CheckedListBoxPages.Enabled = False
@@ -50,7 +65,12 @@
             CheckedListBoxPages.Enabled = True
         End If
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub CheckedListBoxData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CheckedListBoxData.SelectedIndexChanged
 
     End Sub

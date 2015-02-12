@@ -1,5 +1,9 @@
 ﻿Module Processor
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="processorShape"></param>
+    ''' <remarks></remarks>
     Public Sub HandleProcessor(ByRef processorShape As Visio.Shape)
 
         If CountShapesOnPageByName("Rack") < 1 Then

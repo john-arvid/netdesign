@@ -260,7 +260,12 @@
         switchShape.Cells("PinY").Formula = "=" + CStr(PositionY + 0.5 * switchShape.Cells("Height").Result(""))
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="portList"></param>
+    ''' <param name="switchParent"></param>
+    ''' <remarks></remarks>
     Private Sub UpdatePortWithGroup(ByRef portList As List(Of Visio.Shape), ByRef switchParent As Visio.Shape)
         Dim Port As Visio.Shape
 
@@ -272,7 +277,11 @@
         Next
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="switchShape"></param>
+    ''' <remarks></remarks>
     Public Sub DeletePointingOPC(ByRef switchShape As Visio.Shape)
 
         Dim Page As Visio.Page = Globals.ThisAddIn.Application.ActivePage

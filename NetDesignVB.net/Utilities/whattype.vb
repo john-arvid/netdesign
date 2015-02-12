@@ -15,7 +15,11 @@
     'architectural design change that would make this easier.
     'TODO maybe use mastername?
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <remarks></remarks>
     Public Sub checkType(ByVal shape As Visio.Shape)
 
 
