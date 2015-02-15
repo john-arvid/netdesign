@@ -88,9 +88,10 @@
         ''Set the OPC peer not to be reported, this will propegate through the connected wire.
         'OPCCopy.Cells("User.NotReport").Formula = 1
 
-        'If OPCCopy.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
-        '    OPCCopy = OPCCopy.Shapes.Item(13)
-        'End If
+        If OPCShape.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
+            OPCShape = OPCShape.Shapes.Item(13)
+            OPCCopy = OPCCopy.Shapes.Item(13)
+        End If
 
         ' Set the necessary information in the OPC, this is needed because of
         ' the OPC command that is called in the shapesheet cell event doubleclick
@@ -111,6 +112,9 @@
             If OPCShape.Cells("User.OPCType").ResultStr("") = "Patch Panel" Then
                 OPCShape.Text = OtherDocument.Name + " : " + OPCCopy.ContainingPage.Name
                 OPCCopy.Text = FirstDocument.Name + " : " + OPCShape.ContainingPage.Name
+            Else
+                OPCShape.Text = OtherDocument.Name + " : " + OPCCopy.ContainingPage.Name
+                OPCCopy.Text = FirstDocument.Name + " : " + OPCShape.ContainingPage.Name
             End If
             OPCShape.CellsU("EventDblClick").Formula = "RUNADDONWARGS(""OPC"",""/CMD=5"")"
             OPCCopy.CellsU("EventDblClick").Formula = "RUNADDONWARGS(""OPC"",""/CMD=5"")"
@@ -120,10 +124,15 @@
             If OPCShape.Cells("User.OPCType").ResultStr("") = "Patch Panel" Then
                 OPCShape.Text = OPCCopy.ContainingPage.Name
                 OPCCopy.Text = OPCShape.ContainingPage.Name
+            Else
+                OPCShape.Text = OPCCopy.ContainingPage.Name
+                OPCCopy.Text = OPCShape.ContainingPage.Name
             End If
             OPCShape.CellsU("EventDblClick").Formula = "RUNADDONWARGS(""OPC"",""/CMD=2"")"
             OPCCopy.CellsU("EventDblClick").Formula = "RUNADDONWARGS(""OPC"",""/CMD=2"")"
         End If
+
+        
 
     End Sub
 
