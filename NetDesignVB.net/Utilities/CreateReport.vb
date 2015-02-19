@@ -9,7 +9,7 @@ Module Report
     ''' <param name="page"></param>
     ''' <param name="allWires"></param>
     ''' <remarks></remarks>
-    Public Sub CreateReport(ByRef page As Visio.Page, ByVal allWires As Boolean)
+    Public Sub CreateReport(ByRef page As Visio.Page, ByVal allWires As Boolean, Optional ByRef checkedItems As Windows.Forms.CheckedListBox.CheckedItemCollection = Nothing)
 
         Dim MyDocumentsPath As String = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim TextFile As String = MyDocumentsPath + "\NetDesignReport.txt"
@@ -46,7 +46,7 @@ Module Report
                         FromShapeId = Shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0)
                         FromShape = page.Shapes.ItemFromID(FromShapeId)
                         If Not FromShape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
-                            Call GetInformation(Shape, ShapeInformation, Seperator, page)
+                            Call GetInformation(Shape, ShapeInformation, Seperator, page, checkedItems)
                         End If
                         'ElseIf check to include loose wires
                     End If
@@ -56,7 +56,7 @@ Module Report
 
         Call WriteReportToFile(ShapeInformation, TextFile)
 
-        MsgBox("Report has been created and saved: " + TextFile, MsgBoxStyle.OkOnly)
+
 
     End Sub
     ''' <summary>
@@ -67,7 +67,7 @@ Module Report
     ''' <param name="seperator"></param>
     ''' <param name="page"></param>
     ''' <remarks></remarks>
-    Private Sub GetInformation(ByRef shape As Visio.Shape, ByRef shapeInformation As StringBuilder, ByVal seperator As String, ByRef page As Visio.Page)
+    Private Sub GetInformation(ByRef shape As Visio.Shape, ByRef shapeInformation As StringBuilder, ByVal seperator As String, ByRef page As Visio.Page, ByRef checkedItems As Windows.Forms.CheckedListBox.CheckedItemCollection)
         Dim ToShape As Visio.Shape
         Dim ToShapeId As Integer
         Dim FromShape As Visio.Shape
@@ -79,24 +79,97 @@ Module Report
         FromShapeId = shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0)
         FromShape = page.Shapes.ItemFromID(FromShapeId)
 
-
-
         shapeInformation.AppendLine()
-        shapeInformation.Append(ToShape.Cells("User.RackLocation").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(ToShape.Cells("User.SwitchName").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(ToShape.Cells("User.UPosition").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(FromShape.Cells("User.RackLocation").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(FromShape.Cells("User.SwitchName").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(FromShape.Cells("User.UPosition").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(shape.Cells("Prop.Media").ResultStr(""))
-        shapeInformation.Append(seperator)
-        shapeInformation.Append(shape.Cells("Prop.WireID").ResultStr(""))
+
+        'Add information about the first shape
+        For Each item In checkedItems
+            Select Case item.ToString()
+                Case "Rack Location"
+                    shapeInformation.Append(ToShape.Cells("User.RackLocation").ResultStr(""))
+                Case "Switch Name"
+                    shapeInformation.Append(ToShape.Cells("User.SwitchName").ResultStr(""))
+                Case "Switch Type"
+
+                Case "Switch Port Number"
+
+                Case "Switch Port Type"
+
+                Case "Switch Port Media"
+
+                Case "Processor Name"
+
+                Case "Processor Type"
+
+                Case "Processor Port Number"
+
+                Case "Processor Port Type2"
+
+                Case "Processor Port Media"
+
+                Case "Wire ID"
+                    shapeInformation.Append(shape.Cells("Prop.WireID").ResultStr(""))
+                Case "Wire Length"
+
+                Case "Wire Type"
+
+                Case "Wire Media"
+                    shapeInformation.Append(shape.Cells("Prop.Media").ResultStr(""))
+                Case "Port Type"
+
+                Case "Port Media"
+
+                Case "U Position"
+                    shapeInformation.Append(ToShape.Cells("User.UPosition").ResultStr(""))
+            End Select
+            shapeInformation.Append(seperator)
+        Next
+
+        'Add information about the second shape
+        For Each item In checkedItems
+            Select Case item.ToString()
+                Case "Rack Location"
+                    shapeInformation.Append(FromShape.Cells("User.RackLocation").ResultStr(""))
+                Case "Switch Name"
+                    shapeInformation.Append(FromShape.Cells("User.SwitchName").ResultStr(""))
+                Case "Switch Type"
+
+                Case "Switch Port Number"
+
+                Case "Switch Port Type"
+
+                Case "Switch Port Media"
+
+                Case "Processor Name"
+
+                Case "Processor Type"
+
+                Case "Processor Port Number"
+
+                Case "Processor Port Type2"
+
+                Case "Processor Port Media"
+
+                Case "Wire ID"
+                    shapeInformation.Append(shape.Cells("Prop.WireID").ResultStr(""))
+                Case "Wire Length"
+
+                Case "Wire Type"
+
+                Case "Wire Media"
+                    shapeInformation.Append(shape.Cells("Prop.Media").ResultStr(""))
+                Case "Port Type"
+
+                Case "Port Media"
+
+                Case "U Position"
+                    shapeInformation.Append(FromShape.Cells("User.UPosition").ResultStr(""))
+            End Select
+            shapeInformation.Append(seperator)
+        Next
+
+        'Remove the last seperator
+        shapeInformation.Remove(shapeInformation.Length - 1, 1)
+
     End Sub
 
     ''' <summary>

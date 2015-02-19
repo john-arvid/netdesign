@@ -127,7 +127,7 @@
         'Remove the glue and the annoying quick connect
         chassisSwitchShape.CellsU("GlueType").Formula = 8
 
-        
+
 
         For i As Integer = 1 To form.TextBoxPages.Text
             Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.Add()

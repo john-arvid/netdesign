@@ -37,19 +37,21 @@
             Pages = Globals.ThisAddIn.Application.ActiveDocument.Pages
 
             For Each Page In Pages
-                Call CreateReport(Page, AllWires)
+                Call CreateReport(Page, AllWires, CheckedListBoxData.CheckedItems)
                 GC.Collect()
             Next
         ElseIf (CheckedListBoxPages.CheckedItems.Count >= 1) Then
             For Each Item In CheckedListBoxPages.CheckedItems
                 Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.Item(Item.ToString())
-                Call CreateReport(Page, AllWires)
+                Call CreateReport(Page, AllWires, CheckedListBoxData.CheckedItems)
                 GC.Collect()
             Next
         Else
             MsgBox("Nothing was selected, I do nothing!", MsgBoxStyle.OkOnly)
-
+            Exit Sub
         End If
+
+        MsgBox("Report has been created and saved: Documents\NetDesignReport.txt", MsgBoxStyle.OkOnly)
 
     End Sub
     ''' <summary>
@@ -73,5 +75,19 @@
     ''' <remarks></remarks>
     Private Sub CheckedListBoxData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CheckedListBoxData.SelectedIndexChanged
 
+    End Sub
+
+    Private Sub CheckBoxAllData_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxAllData.CheckedChanged
+        If CheckBoxAllData.Checked Then
+            For i As Integer = 0 To CheckedListBoxData.Items.Count - 1
+                CheckedListBoxData.SetItemCheckState(i, Windows.Forms.CheckState.Checked)
+            Next
+            CheckedListBoxData.Enabled = False
+        Else
+            For i As Integer = 0 To CheckedListBoxData.Items.Count - 1
+                CheckedListBoxData.SetItemCheckState(i, Windows.Forms.CheckState.Unchecked)
+            Next
+            CheckedListBoxData.Enabled = True
+        End If
     End Sub
 End Class

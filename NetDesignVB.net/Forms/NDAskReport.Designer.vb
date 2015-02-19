@@ -92,7 +92,7 @@ Partial Class NDAskReport
         'CheckedListBoxData
         '
         Me.CheckedListBoxData.FormattingEnabled = True
-        Me.CheckedListBoxData.Items.AddRange(New Object() {"Switch Name", "Switch Type", "Switch Port Number", "Switch Port Type", "Switch Port Media", "Processor Name", "Processor Type", "Processor Port Number", "Processor Port Type", "Processor Port Media", "Wire ID", "Wire Length", "Wire Type", "Port Type", "Port Media"})
+        Me.CheckedListBoxData.Items.AddRange(New Object() {"Switch Name", "Switch Type", "Switch Port Number", "Switch Port Type", "Switch Port Media", "Processor Name", "Processor Type", "Processor Port Number", "Processor Port Type", "Processor Port Media", "Wire ID", "Wire Length", "Wire Type", "Wire Media", "Port Type", "Port Media", "Rack Location", "U Position"})
         Me.CheckedListBoxData.Location = New System.Drawing.Point(291, 47)
         Me.CheckedListBoxData.Name = "CheckedListBoxData"
         Me.CheckedListBoxData.Size = New System.Drawing.Size(382, 79)
