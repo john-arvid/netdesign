@@ -21,7 +21,7 @@ Public Class test
         End If
         activeshape = activeApplication.ActiveWindow.Selection.Item(1)
 
-        If activeshape.CellExists("Prop.Name", 0) Then
+        If activeshape.CellExists(ShapeName, 0) Then
             For Each page As Visio.Page In pages
                 checkName(activeshape, page)
             Next
@@ -34,11 +34,11 @@ Public Class test
         Dim i As Integer = 0
 
         For Each shape As Visio.Shape In page.Shapes
-                If shape.CellExists("Prop.Name", 0) Then
-                    If activeShape.Cells("Prop.Name").ResultStr("") = shape.Cells("Prop.Name").ResultStr("") Then
-                        i += 1
-                    End If
+            If shape.CellExists(ShapeName, 0) Then
+                If activeShape.Cells(ShapeName).ResultStr("") = shape.Cells(ShapeName).ResultStr("") Then
+                    i += 1
                 End If
+            End If
         Next
 
         If i > 1 Then

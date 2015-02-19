@@ -154,7 +154,7 @@
         ElseIf OPC.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
             'Call MoveInformation(OPC, wireShape)
             Call SynchOPC(OPC, wireShape)
-            wireShape.Cells("Prop.WireID").Formula = """" + OPC.Cells("User.WireID").ResultStr("") + """"
+            wireShape.Cells(WireID).Formula = """" + OPC.Cells("User.WireID").ResultStr("") + """"
             'Call UpdateText(OPC, wireShape)
         End If
 
@@ -174,13 +174,13 @@
 
         OtherOPC = GetOtherOPC(OPC)
 
-        OPC.Cells("User.MediaType").Formula = """" + wireShape.Cells("Prop.Media").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaType").Formula = """" + wireShape.Cells(MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         OPC.Cells("User.MediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells("Prop.TransmissionSpeed").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells(TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
-        OtherOPC.Cells("User.OtherMediaType").Formula = """" + wireShape.Cells("Prop.Media").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaType").Formula = """" + wireShape.Cells(MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         OtherOPC.Cells("User.OtherMediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OtherOPC.Cells("User.OtherMediaSpeed").Formula = """" + wireShape.Cells("Prop.TransmissionSpeed").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaSpeed").Formula = """" + wireShape.Cells(TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
         If wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "Port").Length = 1 Then
 

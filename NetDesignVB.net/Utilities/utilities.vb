@@ -188,9 +188,9 @@ Module Utilities
     ''' <remarks></remarks>
     Public Sub MoveInformation(ByVal toShape As Visio.Shape, ByRef fromShape As Visio.Shape)
 
-        toShape.Cells("User.MediaType").Formula = """" + fromShape.Cells("Prop.Media").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        toShape.Cells("User.MediaType").Formula = """" + fromShape.Cells(MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         toShape.Cells("User.MediaPurpose").Formula = """" + fromShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        toShape.Cells("User.MediaSpeed").Formula = """" + fromShape.Cells("Prop.TransmissionSpeed").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        toShape.Cells("User.MediaSpeed").Formula = """" + fromShape.Cells(TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         toShape.Cells("User.PortName").Formula = """" + fromShape.Cells("User.PortName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         toShape.Cells("User.SwitchName").Formula = """" + fromShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
@@ -418,8 +418,8 @@ Module Utilities
                 WireShapeCopy.Cells("EndX").GlueTo(OPCCopy.Cells("AlignRight"))
 
                 'Add the cable id
-                WireShape.Cells("Prop.WireID").Formula = """" + WireID.ToString() + """"
-                WireShapeCopy.Cells("Prop.WireID").Formula = """" + WireID.ToString() + """"
+                WireShape.Cells(WireID).Formula = """" + WireID.ToString() + """"
+                WireShapeCopy.Cells(WireID).Formula = """" + WireID.ToString() + """"
 
                 'Block reporting on the other end of wire
                 WireShapeCopy.Cells("User.NotReport").Formula = """" + "1" + """"
@@ -472,8 +472,8 @@ Module Utilities
             WireShapeCopy = OtherDocument.Pages.Item(1).Drop(WireMaster, 2.02, PositionY3)
 
             'Add the cable id
-            WireShape.Cells("Prop.WireID").Formula = """" + WireShape.NameID + """"
-            WireShapeCopy.Cells("Prop.WireID").Formula = """" + WireShapeCopy.NameID + """"
+            WireShape.Cells(WireID).Formula = """" + WireShape.NameID + """"
+            WireShapeCopy.Cells(WireID).Formula = """" + WireShapeCopy.NameID + """"
 
             'Connect wire in first document
             WireShape.Cells("BeginX").GlueTo(MainSwitchSmall.Shapes(2).Cells("AlignLeft"))

@@ -21,23 +21,9 @@ Module Report
 
         If Not System.IO.File.Exists(TextFile) Then
             System.IO.File.Create(TextFile).Dispose()
-            Call InitiateReport(ShapeInformation, Seperator)
         End If
 
-        'For Each Shape In page.Shapes
-        '    If Shape.CellExists("User.msvShapeCategories", 0) Then
-        '        If Shape.Cells("User.msvShapeCategories").ResultStr("") = "Wire" AndAlso Shape.Cells("User.NotReport").ResultInt("", 1) = 0 Then
-        '            Call GetInformation(Shape, ShapeInformation, Seperator, page)
-        '        ElseIf Shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" AndAlso Shape.Cells("User.NotReport").ResultInt("", 1) = 0 Then
-        '            If Shape.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
-        '                For i As Integer = 1 To 12
-        '                    Call GetInformation(Shape.Shapes.Item(i), ShapeInformation, Seperator, page)
-        '                Next
-        '            End If
-        '        End If
-        '    End If
-        'Next
-
+        Call InitiateReport(ShapeInformation, Seperator)
 
         For Each Shape In page.Shapes
             If Shape.CellExists("User.msvShapeCategories", 0) Then
@@ -107,13 +93,13 @@ Module Report
                 Case "Processor Port Media"
 
                 Case "Wire ID"
-                    shapeInformation.Append(shape.Cells("Prop.WireID").ResultStr(""))
+                    shapeInformation.Append(shape.Cells(WireID).ResultStr(""))
                 Case "Wire Length"
 
                 Case "Wire Type"
 
                 Case "Wire Media"
-                    shapeInformation.Append(shape.Cells("Prop.Media").ResultStr(""))
+                    shapeInformation.Append(shape.Cells(MediaType).ResultStr(""))
                 Case "Port Type"
 
                 Case "Port Media"
@@ -150,13 +136,13 @@ Module Report
                 Case "Processor Port Media"
 
                 Case "Wire ID"
-                    shapeInformation.Append(shape.Cells("Prop.WireID").ResultStr(""))
+                    shapeInformation.Append(shape.Cells(WireID).ResultStr(""))
                 Case "Wire Length"
 
                 Case "Wire Type"
 
                 Case "Wire Media"
-                    shapeInformation.Append(shape.Cells("Prop.Media").ResultStr(""))
+                    shapeInformation.Append(shape.Cells(MediaType).ResultStr(""))
                 Case "Port Type"
 
                 Case "Port Media"

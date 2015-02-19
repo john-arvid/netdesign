@@ -57,6 +57,7 @@
         Dim SwitchName As String = form.TextBoxName.Text
         Dim SwitchType As String = form.TextBoxModel.Text
 
+        'TODO why .value?
         ' Set the switch name and Model from the user input
         switchShape.Cells("Prop.Name.Value").Formula = """" + SwitchName + """"
         switchShape.Cells("Prop.Model.Value").Formula = """" + SwitchType + """"

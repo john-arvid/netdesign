@@ -240,7 +240,7 @@
                 newport.Cells("Height").Formula = "=Width"
 
                 ' Set the data of the port
-                newport.Cells("Prop.Media").Formula = """" + typeOfPort + """"
+                newport.Cells(MediaType).Formula = """" + typeOfPort + """"
                 newport.Cells("Prop.Purpose").Formula = """" + purposeOfPort + """"
                 newport.Cells("Prop.PortNumber").Formula = """" + CStr(Count) + """"
 
@@ -269,6 +269,7 @@
     Private Sub UpdatePortWithGroup(ByRef portList As List(Of Visio.Shape), ByRef switchParent As Visio.Shape)
         Dim Port As Visio.Shape
 
+        'TODO what does ! mean?
         For Each Port In portList
             Port.Cells("User.RackLocation").Formula = "=" + switchParent.Name + "!User.RackLocation"
             Port.Cells("User.SwitchName").Formula = "=" + switchParent.Name + "!Prop.Name"
@@ -292,7 +293,7 @@
             Shape = Page.Shapes.Item(i)
             If Shape.CellExists("User.msvShapeCategories", 0) Then
                 If Shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
-                    If Shape.Cells("User.SwitchName").ResultStr("") = switchShape.Cells("Prop.Name").ResultStr("") Then
+                    If Shape.Cells("User.SwitchName").ResultStr("") = switchShape.Cells(ShapeName).ResultStr("") Then
                         Shape.Delete()
                     End If
                 End If

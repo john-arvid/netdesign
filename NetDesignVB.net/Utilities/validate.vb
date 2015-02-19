@@ -91,19 +91,19 @@
         End If
         
 
-        If FromShape.Cells("Prop.Media").ResultStr("") <> wireShape.Cells("Prop.Media").ResultStr("") Then
+        If FromShape.Cells(MediaType).ResultStr("") <> wireShape.Cells(MediaType).ResultStr("") Then
             Call AddIssue("MediaType", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells("Prop.Media").ResultStr("") <> wireShape.Cells("Prop.Media").ResultStr("") Then
+        If ToShape.Cells(MediaType).ResultStr("") <> wireShape.Cells(MediaType).ResultStr("") Then
             Call AddIssue("MediaType", ruleSet, page, wireShape)
         End If
 
-        If FromShape.Cells("Prop.TransmissionSpeed").ResultStr("") <> wireShape.Cells("Prop.TransmissionSpeed").ResultStr("") Then
+        If FromShape.Cells(TransmissionSpeed).ResultStr("") <> wireShape.Cells(TransmissionSpeed).ResultStr("") Then
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells("Prop.TransmissionSpeed").ResultStr("") <> wireShape.Cells("Prop.TransmissionSpeed").ResultStr("") Then
+        If ToShape.Cells(TransmissionSpeed).ResultStr("") <> wireShape.Cells(TransmissionSpeed).ResultStr("") Then
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
@@ -187,7 +187,7 @@
 
 
 
-        If wireShape.Cells("Prop.Media").ResultStr("") <> ToShape.Cells("Prop.Media").ResultStr("") Then
+        If wireShape.Cells(MediaType).ResultStr("") <> ToShape.Cells(MediaType).ResultStr("") Then
             MsgBox("Media type not same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -201,7 +201,7 @@
                 'MsgBox(ex.Message)
             End Try
 
-        ElseIf wireShape.Cells("Prop.TransmissionSpeed").ResultStr("") <> ToShape.Cells("Prop.TransmissionSpeed").ResultStr("") Then
+        ElseIf wireShape.Cells(TransmissionSpeed).ResultStr("") <> ToShape.Cells(TransmissionSpeed).ResultStr("") Then
             MsgBox("Transmission speed is not the same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -249,7 +249,7 @@
         'End If
 
         'If Not wireShape Is Nothing Then
-        '    If wireShape.Cells("Prop.Media").Formula <> wireShape.Cells("Prop.Media").Formula Then
+        '    If wireShape.Cells(MediaType).Formula <> wireShape.Cells(MediaType).Formula Then
         '        wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBothEnds, 2, 2, Visio.VisUnitCodes.visCentimeters)
         '    End If
         'End If
@@ -306,8 +306,8 @@
             Document = Globals.ThisAddIn.Application.ActiveDocument
             For Each Page In Document.Pages
                 For Each Shape In Page.Shapes
-                    If Shape.CellExists("Prop.Name", False) Then
-                        If String.Compare(name, Shape.Cells("Prop.Name").ResultStr(""), False) = 0 Then
+                    If Shape.CellExists(ShapeName, False) Then
+                        If String.Compare(name, Shape.Cells(ShapeName).ResultStr(""), False) = 0 Then
                             Return False
                         End If
                     End If

@@ -64,8 +64,8 @@
         BladeMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Blade")
         ChassisPageMaster = Globals.ThisAddIn.Application.Documents.Item("NetdesignHidden.vssx").Masters.Item("Chassis switch page")
 
-        chassisSwitchShape.Cells("Prop.Name").Formula = """" + form.TextBoxName.Text + """"
-        chassisSwitchShape.Cells("Prop.Model").Formula = """" + form.TextBoxModel.Text + """"
+        chassisSwitchShape.Cells(ShapeName).Formula = """" + form.TextBoxName.Text + """"
+        chassisSwitchShape.Cells(ShapeModel).Formula = """" + form.TextBoxModel.Text + """"
         chassisSwitchShape.Cells("LockTextEdit").Formula = 0
         chassisSwitchShape.Text = form.TextBoxName.Text + " - " + form.TextBoxModel.Text
         chassisSwitchShape.Cells("LockTextEdit").Formula = 1

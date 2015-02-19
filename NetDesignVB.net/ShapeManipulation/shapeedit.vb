@@ -122,10 +122,10 @@
 
         OldText = shape.Text
 
-        If cell Is shape.Cells("Prop.Name") Then
-            NewText = cell.ResultStr("") + " - " + shape.Cells("Prop.Model").ResultStr("")
-        ElseIf cell Is shape.Cells("Prop.Model") Then
-            NewText = shape.Cells("Prop.Name").ResultStr("") + " - " + cell.ResultStr("")
+        If cell Is shape.Cells(ShapeName) Then
+            NewText = cell.ResultStr("") + " - " + shape.Cells(ShapeModel).ResultStr("")
+        ElseIf cell Is shape.Cells(ShapeModel) Then
+            NewText = shape.Cells(ShapeName).ResultStr("") + " - " + cell.ResultStr("")
         Else
             Exit Sub
         End If

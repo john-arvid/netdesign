@@ -28,4 +28,18 @@
 
 #End Region
 
+#Region "Shapesheet cells"
+
+    'Constants for the shapesheet cells
+    Public Const UPosition As String = "Prop.UPosition"
+    Public Const ShapeName As String = "Prop.Name"
+    Public Const ShapeModel As String = "Prop.Model"
+    Public Const TransmissionSpeed As String = "Prop.TransmissionSpeed"
+    Public Const MediaType As String = "Prop.Media"
+    Public Const WireID As String = "Prop.WireID"
+
+
+
+#End Region
+
 End Module
