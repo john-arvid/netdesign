@@ -46,9 +46,8 @@ Public Class ThisAddIn
             Call PreparePage(Globals.ThisAddIn.Application.ActivePage)
         End If
 
-        ' Add stencils
-        Call openDocument(Globals.ThisAddIn.Application, "C:\Users\NetDesign\Desktop\NetDesignVB.net\NetDesignVB.net\bin\Debug\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRW)
-        Call openDocument(Globals.ThisAddIn.Application, "C:\Users\NetDesign\Desktop\NetDesignVB.net\NetDesignVB.net\bin\Debug\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
+
+        Call AddStencils()
 
         ' Add ruleset
         Call AddOrUpdateRuleSet()

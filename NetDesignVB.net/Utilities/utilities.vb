@@ -694,4 +694,38 @@ Module Utilities
 
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="URL"></param>
+    ''' <param name="SaveAs"></param>
+    ''' <remarks></remarks>
+    Public Sub DownloadFile(ByVal URL As String, ByVal saveAs As String)
+        Try
+            Dim WebClient As New System.Net.WebClient()
+
+            WebClient.DownloadFile(URL, saveAs)
+        Catch ex As Exception
+            Console.WriteLine("Exception caught in process: {0}", ex.ToString())
+        End Try
+    End Sub
+
+
+    ''' <summary>
+    ''' Downloads the stencil files and opens them. This is while developing, since the file will be downloaded every time the tools is being started.
+    ''' </summary>
+    ''' <remarks>TODO: Remove this when finnishing</remarks>
+    Public Sub AddStencils()
+
+        'Download stencil files
+        DownloadFile("https://github.com/john-arvid/netdesign/blob/master/NetDesignVB.net/Netdesign.vssx?raw=true", My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Netdesign.vssx")
+        DownloadFile("https://github.com/john-arvid/netdesign/blob/master/NetDesignVB.net/NetdesignHidden.vssx?raw=true", My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\NetdesignHidden.vssx")
+
+
+        ' Add stencils
+        Call openDocument(Globals.ThisAddIn.Application, My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRW)
+        Call openDocument(Globals.ThisAddIn.Application, My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
+
+    End Sub
+
 End Module
