@@ -25,7 +25,7 @@ Public Class Ribbon1
         'Dim shape As Visio.Shape = Globals.ThisAddIn.Application.ActivePage.Shapes(1)
         'For Each item As Visio.Shape In shape.Shapes
         '    MsgBox(item.Cells("Prop.WireNumber").ResultStr(""))
-        '    MsgBox(item.Cells("User.PortName").ResultStr(Visio.VisUnitCodes.visUnitsString))
+        '    MsgBox(item.Cells(PortName).ResultStr(Visio.VisUnitCodes.visUnitsString))
         'Next
 
         'Dim mastershape As Visio.Master = Globals.ThisAddIn.Application.Documents("Netdesign.vssx").Masters.Item("Wire Bundle")

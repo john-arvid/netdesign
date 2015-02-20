@@ -127,8 +127,8 @@
             End Select
         End If
 
-        If shape.CellExists("User.msvShapeCategories", 0) Then
-            If shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
+        If shape.CellExists(_ShapeCategories, 0) Then
+            If shape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
                 Call HandleOffPageConnector(shape)
             End If
         End If

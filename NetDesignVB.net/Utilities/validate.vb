@@ -91,19 +91,19 @@
         End If
         
 
-        If FromShape.Cells(MediaType).ResultStr("") <> wireShape.Cells(MediaType).ResultStr("") Then
+        If FromShape.Cells(_MediaType).ResultStr("") <> wireShape.Cells(_MediaType).ResultStr("") Then
             Call AddIssue("MediaType", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells(MediaType).ResultStr("") <> wireShape.Cells(MediaType).ResultStr("") Then
+        If ToShape.Cells(_MediaType).ResultStr("") <> wireShape.Cells(_MediaType).ResultStr("") Then
             Call AddIssue("MediaType", ruleSet, page, wireShape)
         End If
 
-        If FromShape.Cells(TransmissionSpeed).ResultStr("") <> wireShape.Cells(TransmissionSpeed).ResultStr("") Then
+        If FromShape.Cells(_TransmissionSpeed).ResultStr("") <> wireShape.Cells(_TransmissionSpeed).ResultStr("") Then
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells(TransmissionSpeed).ResultStr("") <> wireShape.Cells(TransmissionSpeed).ResultStr("") Then
+        If ToShape.Cells(_TransmissionSpeed).ResultStr("") <> wireShape.Cells(_TransmissionSpeed).ResultStr("") Then
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
@@ -140,7 +140,7 @@
         ToShape = connections.ToSheet
 
         'If connected to an OPC
-        If ToShape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
+        If ToShape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
             Exit Sub
         End If
 
@@ -187,7 +187,7 @@
 
 
 
-        If wireShape.Cells(MediaType).ResultStr("") <> ToShape.Cells(MediaType).ResultStr("") Then
+        If wireShape.Cells(_MediaType).ResultStr("") <> ToShape.Cells(_MediaType).ResultStr("") Then
             MsgBox("Media type not same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -201,7 +201,7 @@
                 'MsgBox(ex.Message)
             End Try
 
-        ElseIf wireShape.Cells(TransmissionSpeed).ResultStr("") <> ToShape.Cells(TransmissionSpeed).ResultStr("") Then
+        ElseIf wireShape.Cells(_TransmissionSpeed).ResultStr("") <> ToShape.Cells(_TransmissionSpeed).ResultStr("") Then
             MsgBox("Transmission speed is not the same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -306,8 +306,8 @@
             Document = Globals.ThisAddIn.Application.ActiveDocument
             For Each Page In Document.Pages
                 For Each Shape In Page.Shapes
-                    If Shape.CellExists(ShapeName, False) Then
-                        If String.Compare(name, Shape.Cells(ShapeName).ResultStr(""), False) = 0 Then
+                    If Shape.CellExists(_ShapeName, False) Then
+                        If String.Compare(name, Shape.Cells(_ShapeName).ResultStr(""), False) = 0 Then
                             Return False
                         End If
                     End If

@@ -15,8 +15,8 @@
         Dim ChassisSwitchForm As New NDAskForChassis
 
         ' Replaces ?? in the form
-        If chassisSwitchShape.CellExists("User.msvShapeCategories", 0) Then
-            changeNameInForm(chassisSwitchShape.Cells("User.msvShapeCategories").ResultStr(""), ChassisSwitchForm)
+        If chassisSwitchShape.CellExists(_ShapeCategories, 0) Then
+            changeNameInForm(chassisSwitchShape.Cells(_ShapeCategories).ResultStr(""), ChassisSwitchForm)
         End If
 
         ChassisSwitchForm.ShowDialog()
@@ -64,8 +64,8 @@
         BladeMaster = Globals.ThisAddIn.Application.Documents.Item("Netdesign.vssx").Masters.Item("Blade")
         ChassisPageMaster = Globals.ThisAddIn.Application.Documents.Item("NetdesignHidden.vssx").Masters.Item("Chassis switch page")
 
-        chassisSwitchShape.Cells(ShapeName).Formula = """" + form.TextBoxName.Text + """"
-        chassisSwitchShape.Cells(ShapeModel).Formula = """" + form.TextBoxModel.Text + """"
+        chassisSwitchShape.Cells(_ShapeName).Formula = """" + form.TextBoxName.Text + """"
+        chassisSwitchShape.Cells(_ShapeModel).Formula = """" + form.TextBoxModel.Text + """"
         chassisSwitchShape.Cells("LockTextEdit").Formula = 0
         chassisSwitchShape.Text = form.TextBoxName.Text + " - " + form.TextBoxModel.Text
         chassisSwitchShape.Cells("LockTextEdit").Formula = 1
@@ -79,7 +79,7 @@
         For i As Integer = 1 To form.TextBoxPages.Text
             'Find the last chassis page link
             For Each shape As Visio.Shape In chassisSwitchShape.Shapes
-                If shape.Cells("User.msvShapeCategories").ResultStr("") = "Chassis Switch Page" Then
+                If shape.Cells(_ShapeCategories).ResultStr("") = "Chassis Switch Page" Then
                     LastChassisPage = shape
                 Else
                     ChassisSwitchBase = shape

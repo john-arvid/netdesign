@@ -31,12 +31,15 @@
 #Region "Shapesheet cells"
 
     'Constants for the shapesheet cells
-    Public Const UPosition As String = "Prop.UPosition"
-    Public Const ShapeName As String = "Prop.Name"
-    Public Const ShapeModel As String = "Prop.Model"
-    Public Const TransmissionSpeed As String = "Prop.TransmissionSpeed"
-    Public Const MediaType As String = "Prop.Media"
-    Public Const WireID As String = "Prop.WireID"
+    Public Const _UPosition As String = "Prop.UPosition"
+    Public Const _ShapeName As String = "Prop.Name"
+    Public Const _ShapeModel As String = "Prop.Model"
+    Public Const _TransmissionSpeed As String = "Prop.TransmissionSpeed"
+    Public Const _MediaType As String = "Prop.Media"
+    Public Const _WireID As String = "Prop.WireID"
+    Public Const _ShapeCategories As String = "User.msvShapeCategories"
+    Public Const _SwitchName As String = "User.SwitchName"
+    Public Const _PortName As String = "User.PortName"
 
 
 

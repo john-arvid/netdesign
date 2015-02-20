@@ -16,8 +16,8 @@
 
         Dim SwitchForm As New FormNDAskForSwitch
         ' Replaces ?? in the form
-        If switchShape.CellExists("User.msvShapeCategories", 0) Then
-            changeNameInForm(switchShape.Cells("User.msvShapeCategories").ResultStr(""), SwitchForm)
+        If switchShape.CellExists(_ShapeCategories, 0) Then
+            changeNameInForm(switchShape.Cells(_ShapeCategories).ResultStr(""), SwitchForm)
         End If
 
         ' Validates only when I says so
@@ -47,14 +47,23 @@
         SwitchForm = Nothing
 
     End Sub
+    
     ''' <summary>
     ''' Updates the switch with the user input, calls the AddPortToSwitch 
     ''' function, and alters the switch size according to the number of ports.
     ''' Orients the switch horizontally if checked, groups all the shapes 
     ''' together if checked
     ''' </summary>
-    ''' <param name="switchShape">The switch shape</param>
-    ''' <param name="form">The form with user input</param>
+    ''' <param name="switchShape">The shape that was dropped</param>
+    ''' <param name="switchName">The user inputed name</param>
+    ''' <param name="switchType">The selected switch type</param>
+    ''' <param name="portNumber">How many ports</param>
+    ''' <param name="rowNumber">How many rows</param>
+    ''' <param name="mediaType">What kind of media type</param>
+    ''' <param name="mediaPurpose">What purpose of media</param>
+    ''' <param name="vertical">Vertical or not</param>
+    ''' <param name="document">In what document</param>
+    ''' <param name="page">On what page</param>
     ''' <remarks></remarks>
     Public Sub CreateSwitch(ByRef switchShape As Visio.Shape, ByVal switchName As String, _
                             ByVal switchType As String, ByVal portNumber As String, _
@@ -240,7 +249,7 @@
                 newport.Cells("Height").Formula = "=Width"
 
                 ' Set the data of the port
-                newport.Cells(MediaType).Formula = """" + typeOfPort + """"
+                newport.Cells(_MediaType).Formula = """" + typeOfPort + """"
                 newport.Cells("Prop.Purpose").Formula = """" + purposeOfPort + """"
                 newport.Cells("Prop.PortNumber").Formula = """" + CStr(Count) + """"
 
@@ -269,12 +278,12 @@
     Private Sub UpdatePortWithGroup(ByRef portList As List(Of Visio.Shape), ByRef switchParent As Visio.Shape)
         Dim Port As Visio.Shape
 
-        'TODO what does ! mean?
+        ' Set a reference to the switchparent cell's, this is done with the !
         For Each Port In portList
             Port.Cells("User.RackLocation").Formula = "=" + switchParent.Name + "!User.RackLocation"
-            Port.Cells("User.SwitchName").Formula = "=" + switchParent.Name + "!Prop.Name"
+            Port.Cells(_SwitchName).Formula = "=" + switchParent.Name + "!Prop.Name"
             Port.Cells("User.UPosition").Formula = "=" + switchParent.Name + "!Prop.UPosition"
-            Port.Cells("User.SwitchType").Formula = "=" + switchParent.Name + "!User.msvShapeCategories"
+            Port.Cells("User.SwitchType").Formula = "=" + switchParent.Name + "!" + _ShapeCategories
         Next
 
     End Sub
@@ -291,9 +300,9 @@
 
         For i As Integer = Counter To 1 Step -1
             Shape = Page.Shapes.Item(i)
-            If Shape.CellExists("User.msvShapeCategories", 0) Then
-                If Shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
-                    If Shape.Cells("User.SwitchName").ResultStr("") = switchShape.Cells(ShapeName).ResultStr("") Then
+            If Shape.CellExists(_ShapeCategories, 0) Then
+                If Shape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+                    If Shape.Cells(_SwitchName).ResultStr("") = switchShape.Cells(_ShapeName).ResultStr("") Then
                         Shape.Delete()
                     End If
                 End If

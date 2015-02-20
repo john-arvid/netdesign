@@ -154,7 +154,7 @@
         ElseIf OPC.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
             'Call MoveInformation(OPC, wireShape)
             Call SynchOPC(OPC, wireShape)
-            wireShape.Cells(WireID).Formula = """" + OPC.Cells("User.WireID").ResultStr("") + """"
+            wireShape.Cells(_WireID).Formula = """" + OPC.Cells("User.WireID").ResultStr("") + """"
             'Call UpdateText(OPC, wireShape)
         End If
 
@@ -174,13 +174,13 @@
 
         OtherOPC = GetOtherOPC(OPC)
 
-        OPC.Cells("User.MediaType").Formula = """" + wireShape.Cells(MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaType").Formula = """" + wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         OPC.Cells("User.MediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells(TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
-        OtherOPC.Cells("User.OtherMediaType").Formula = """" + wireShape.Cells(MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaType").Formula = """" + wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         OtherOPC.Cells("User.OtherMediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OtherOPC.Cells("User.OtherMediaSpeed").Formula = """" + wireShape.Cells(TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaSpeed").Formula = """" + wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
         If wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "Port").Length = 1 Then
 
@@ -189,13 +189,13 @@
             OPC.Cells("User.RackLocation").Formula = """" + PortShape.Cells("User.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OPC.Cells("User.UPosition").Formula = """" + PortShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OPC.Cells("User.SwitchType").Formula = """" + PortShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OPC.Cells("User.PortName").Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OPC.Cells("User.SwitchName").Formula = """" + PortShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells(_PortName).Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells(_SwitchName).Formula = """" + PortShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
             OtherOPC.Cells("User.OtherUPosition").Formula = """" + PortShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OtherOPC.Cells("User.OtherSwitchType").Formula = """" + PortShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OtherOPC.Cells("User.OtherPortName").Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-            OtherOPC.Cells("User.OtherSwitchName").Formula = """" + PortShape.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OtherOPC.Cells("User.OtherSwitchName").Formula = """" + PortShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
         End If
 
@@ -220,10 +220,10 @@
         OtherOPC = GetOtherOPC(OPC)
 
         'Get the names that will be used, Other means the opposite OPC's. 
-        SwitchName = OPC.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString)
-        PortName = OPC.Cells("User.PortName").ResultStr(Visio.VisUnitCodes.visUnitsString)
-        OtherSwitchName = OtherOPC.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString)
-        OtherPortName = OtherOPC.Cells("User.PortName").ResultStr(Visio.VisUnitCodes.visUnitsString)
+        SwitchName = OPC.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString)
+        PortName = OPC.Cells(_PortName).ResultStr(Visio.VisUnitCodes.visUnitsString)
+        OtherSwitchName = OtherOPC.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString)
+        OtherPortName = OtherOPC.Cells(_PortName).ResultStr(Visio.VisUnitCodes.visUnitsString)
 
         'Change the text of both OPC's
         OPC.Text = OtherOPC.ContainingPage.Name + ":" + OtherSwitchName + ":" + OtherPortName
@@ -298,8 +298,8 @@
 
         ' To avoid the event to trigger again and create a loop
         If Not OtherOPC Is Nothing Then
-            OtherOPC.Cells("User.msvShapeCategories").Formula = """" + "Dead" + """"
-            OPC.Cells("User.msvShapeCategories").Formula = """" + "Dead" + """"
+            OtherOPC.Cells(_ShapeCategories).Formula = """" + "Dead" + """"
+            OPC.Cells(_ShapeCategories).Formula = """" + "Dead" + """"
             OtherOPC.Delete()
         End If
     End Sub
@@ -316,8 +316,8 @@
 
         For i As Integer = Counter To 1 Step -1
             Shape = page.Shapes.Item(i)
-            If Shape.CellExists("User.msvShapeCategories", 0) Then
-                If Shape.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
+            If Shape.CellExists(_ShapeCategories, 0) Then
+                If Shape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
                     Shape.Delete()
                 End If
             End If

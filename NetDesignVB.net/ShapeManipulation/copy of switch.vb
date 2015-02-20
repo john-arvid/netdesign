@@ -38,7 +38,7 @@
         ' And empties it
         SwitchForm = Nothing
 
-        If Not IsUniqueName(switchShape) Then
+        If Not IsUniqueName(switchShape.Text) Then
             MsgBox("This shape has not a unique name!")
             switchShape.Delete()
         End If
