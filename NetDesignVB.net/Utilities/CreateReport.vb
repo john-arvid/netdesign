@@ -71,7 +71,7 @@ Module Report
         For Each item In checkedItems
             Select Case item.ToString()
                 Case "Rack Location"
-                    shapeInformation.Append(ToShape.Cells("User.RackLocation").ResultStr(""))
+                    shapeInformation.Append(ToShape.Cells(_RackLocation).ResultStr(""))
                 Case "Switch Name"
                     shapeInformation.Append(ToShape.Cells(_SwitchName).ResultStr(""))
                 Case "Switch Type"
@@ -114,7 +114,7 @@ Module Report
         For Each item In checkedItems
             Select Case item.ToString()
                 Case "Rack Location"
-                    shapeInformation.Append(FromShape.Cells("User.RackLocation").ResultStr(""))
+                    shapeInformation.Append(FromShape.Cells(_RackLocation).ResultStr(""))
                 Case "Switch Name"
                     shapeInformation.Append(FromShape.Cells(_SwitchName).ResultStr(""))
                 Case "Switch Type"

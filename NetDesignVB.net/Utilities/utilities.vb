@@ -189,7 +189,7 @@ Module Utilities
     Public Sub MoveInformation(ByVal toShape As Visio.Shape, ByRef fromShape As Visio.Shape)
 
         toShape.Cells("User.MediaType").Formula = """" + fromShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        toShape.Cells("User.MediaPurpose").Formula = """" + fromShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        toShape.Cells("User.MediaPurpose").Formula = """" + fromShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         toShape.Cells("User.MediaSpeed").Formula = """" + fromShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         toShape.Cells(_PortName).Formula = """" + fromShape.Cells(_PortName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         toShape.Cells(_SwitchName).Formula = """" + fromShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"

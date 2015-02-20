@@ -30,7 +30,7 @@
 
 #Region "Shapesheet cells"
 
-    'Constants for the shapesheet cells
+    'Constants for the shapesheet cells, these will help when doing changes to the shapesheets
     Public Const _UPosition As String = "Prop.UPosition"
     Public Const _ShapeName As String = "Prop.Name"
     Public Const _ShapeModel As String = "Prop.Model"
@@ -40,6 +40,10 @@
     Public Const _ShapeCategories As String = "User.msvShapeCategories"
     Public Const _SwitchName As String = "User.SwitchName"
     Public Const _PortName As String = "User.PortName"
+    Public Const _PortNumber As String = "User.PortNumber"
+    Public Const _Purpose As String = "Prop.Purpose"
+    Public Const _RackLocation As String = "User.RackLocation"
+
 
 
 

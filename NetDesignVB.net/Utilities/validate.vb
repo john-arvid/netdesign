@@ -107,11 +107,11 @@
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
-        If FromShape.Cells("Prop.Purpose").ResultStr("") <> wireShape.Cells("Prop.Purpose").ResultStr("") Then
+        If FromShape.Cells(_Purpose).ResultStr("") <> wireShape.Cells(_Purpose).ResultStr("") Then
             Call AddIssue("MediaPurpose", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells("Prop.Purpose").ResultStr("") <> wireShape.Cells("Prop.Purpose").ResultStr("") Then
+        If ToShape.Cells(_Purpose).ResultStr("") <> wireShape.Cells(_Purpose).ResultStr("") Then
             Call AddIssue("MediaPurpose", ruleSet, page, wireShape)
         End If
 
@@ -215,7 +215,7 @@
                 'MsgBox(ex.Message)
             End Try
 
-        ElseIf wireShape.Cells("Prop.Purpose").ResultStr("") <> ToShape.Cells("Prop.Purpose").ResultStr("") Then
+        ElseIf wireShape.Cells(_Purpose).ResultStr("") <> ToShape.Cells(_Purpose).ResultStr("") Then
             MsgBox("Media purpose is not the same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)

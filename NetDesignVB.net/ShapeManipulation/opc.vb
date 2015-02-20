@@ -175,18 +175,18 @@
         OtherOPC = GetOtherOPC(OPC)
 
         OPC.Cells("User.MediaType").Formula = """" + wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OPC.Cells("User.MediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OPC.Cells("User.MediaPurpose").Formula = """" + wireShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         OPC.Cells("User.MediaSpeed").Formula = """" + wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
         OtherOPC.Cells("User.OtherMediaType").Formula = """" + wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        OtherOPC.Cells("User.OtherMediaPurpose").Formula = """" + wireShape.Cells("Prop.Purpose").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+        OtherOPC.Cells("User.OtherMediaPurpose").Formula = """" + wireShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         OtherOPC.Cells("User.OtherMediaSpeed").Formula = """" + wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
 
         If wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "Port").Length = 1 Then
 
             PortShape = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "Port")(0))
 
-            OPC.Cells("User.RackLocation").Formula = """" + PortShape.Cells("User.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
+            OPC.Cells(_RackLocation).Formula = """" + PortShape.Cells(_RackLocation).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OPC.Cells("User.UPosition").Formula = """" + PortShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OPC.Cells("User.SwitchType").Formula = """" + PortShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             OPC.Cells(_PortName).Formula = """" + PortShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
@@ -276,7 +276,7 @@
         End Try
 
         If OPCParent.Cells("User.OPCType").ResultStr("") = "Patch Panel Port" Then
-            OtherOPC = OtherOPC.Shapes(OPC.Cells("Prop.PortNumber").ResultInt("", 1))
+            OtherOPC = OtherOPC.Shapes(OPC.Cells(_PortNumber).ResultInt("", 1))
         ElseIf OPCParent.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
             OtherOPC = OtherOPC.Shapes(OtherOPCNumber)
         End If

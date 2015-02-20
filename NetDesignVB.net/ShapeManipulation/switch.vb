@@ -76,7 +76,8 @@
 
         RackShape = GetRackShape()
         If Not RackShape Is Nothing Then
-            switchShape.Cells("User.RackLocation").Formula = "=" + RackShape.Name + "!Prop.RackLocation"
+            switchShape.Cells(_RackLocation).Formula = "=" + RackShape.Name + "!" + _RackLocation
+            MsgBox(switchShape.Cells(_RackLocation).Formula)
         End If
 
         If document Is Nothing Then
@@ -92,8 +93,8 @@
         Globals.ThisAddIn.Application.ActiveWindow.Page = document.Pages.ItemU(page.NameU)
 
         ' Set the switch name and Model from the user input
-        switchShape.Cells("Prop.Name.Value").Formula = """" + switchName + """"
-        switchShape.Cells("Prop.Model.Value").Formula = """" + switchType + """"
+        switchShape.Cells("Prop.Name").Formula = """" + switchName + """"
+        switchShape.Cells("Prop.Model").Formula = """" + switchType + """"
         switchShape.Cells("LockTextEdit").Formula = 0
         switchShape.Text = switchName + " - " + switchType
         switchShape.Cells("LockTextEdit").Formula = 1
@@ -250,8 +251,8 @@
 
                 ' Set the data of the port
                 newport.Cells(_MediaType).Formula = """" + typeOfPort + """"
-                newport.Cells("Prop.Purpose").Formula = """" + purposeOfPort + """"
-                newport.Cells("Prop.PortNumber").Formula = """" + CStr(Count) + """"
+                newport.Cells(_Purpose).Formula = """" + purposeOfPort + """"
+                newport.Cells(_PortNumber).Formula = """" + CStr(Count) + """"
 
                 ' Count to the next port
                 Count = Count + 1
@@ -280,10 +281,10 @@
 
         ' Set a reference to the switchparent cell's, this is done with the !
         For Each Port In portList
-            Port.Cells("User.RackLocation").Formula = "=" + switchParent.Name + "!User.RackLocation"
-            Port.Cells(_SwitchName).Formula = "=" + switchParent.Name + "!Prop.Name"
-            Port.Cells("User.UPosition").Formula = "=" + switchParent.Name + "!Prop.UPosition"
-            Port.Cells("User.SwitchType").Formula = "=" + switchParent.Name + "!" + _ShapeCategories
+            Port.Cells(_RackLocation).Formula = """=" + switchParent.Name + "!" + _RackLocation + """"
+            Port.Cells(_SwitchName).Formula = """=" + switchParent.Name + "!Prop.Name" + """"
+            Port.Cells("User.UPosition").Formula = """=" + switchParent.Name + "!Prop.UPosition" + """"
+            Port.Cells("User.SwitchType").Formula = """=" + switchParent.Name + "!" + _ShapeCategories + """"
         Next
 
     End Sub
