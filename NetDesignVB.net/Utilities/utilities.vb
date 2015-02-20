@@ -260,10 +260,13 @@ Module Utilities
             IncomingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0))
             OutgoingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "")(0))
 
+            ' Write the label with information from the two connected shapes (port's or OPC's)
             If IncomingNode.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
                 wireShape.Text = IncomingNode.Text + "/" + OutgoingNode.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text
             ElseIf OutgoingNode.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
                 wireShape.Text = OutgoingNode.Text + "/" + IncomingNode.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+            Else
+                wireShape.Text = OutgoingNode.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Cells("User.SwitchName").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             End If
         Else
             wireShape.Text = "Not complete yet!"
