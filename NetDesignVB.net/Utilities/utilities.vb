@@ -183,8 +183,8 @@ Module Utilities
     ''' <summary>
     ''' Move shapesheet information from a shape to another
     ''' </summary>
-    ''' <param name="toShape"></param>
-    ''' <param name="fromShape"></param>
+    ''' <param name="toShape">Information to this shape</param>
+    ''' <param name="fromShape">Information from this shape</param>
     ''' <remarks></remarks>
     Public Sub MoveInformation(ByVal toShape As Visio.Shape, ByRef fromShape As Visio.Shape)
 
@@ -196,10 +196,10 @@ Module Utilities
 
     End Sub
     ''' <summary>
-    ''' 
+    ''' When a wire is being connected or disconnected. Alter the port color, and move information.
     ''' </summary>
-    ''' <param name="connections"></param>
-    ''' <param name="connecting"></param>
+    ''' <param name="connections">The shapes that are included in the connection</param>
+    ''' <param name="connecting">Connecting or disconnecting</param>
     ''' <remarks></remarks>
     Public Sub ConnectionChanged(ByRef connections As Visio.Connects, ByVal connecting As Boolean)
 
@@ -207,7 +207,7 @@ Module Utilities
 
         ' Fromsheet is always a wire, so test only on tosheet
         If connections.ToSheet.Cells("User.msvShapeCategories").ResultStr("") = "OPC" Then
-
+            'Wire connected to an OPC, transfer information from the OPC to the wire
             Call UpdateOPC(connections.ToSheet, connections.FromSheet)
         ElseIf connections.ToSheet.Cells("User.msvShapeCategories").ResultStr("") = "Port" Then
             If connecting Then
@@ -223,10 +223,10 @@ Module Utilities
 
     End Sub
     ''' <summary>
-    ''' 
+    ''' Synchronize the information from the connected shape to the wire.
     ''' </summary>
-    ''' <param name="connectedShape"></param>
-    ''' <param name="wireShape"></param>
+    ''' <param name="connectedShape">The shape that was connected to the wire</param>
+    ''' <param name="wireShape">The wire itself</param>
     ''' <remarks></remarks>
     Public Sub SynchWire(ByRef connectedShape As Visio.Shape, ByRef wireShape As Visio.Shape)
 
@@ -243,10 +243,10 @@ Module Utilities
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Update the label to the wire with information about what it is connected to.
     ''' </summary>
-    ''' <param name="connectedShape"></param>
-    ''' <param name="wireShape"></param>
+    ''' <param name="connectedShape">The shape that the wire was connected to</param>
+    ''' <param name="wireShape">The wire itself</param>
     ''' <remarks></remarks>
     Public Sub UpdateLabel(ByRef connectedShape As Visio.Shape, ByRef wireShape As Visio.Shape)
         Dim IncomingNode As Visio.Shape
@@ -275,10 +275,10 @@ Module Utilities
 
     End Sub
     ''' <summary>
-    ''' 
+    ''' Return the rackshape of the active page
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+    ''' <returns>The rackshape if found</returns>
+    ''' <remarks>Used to test if a page contains a rackshape so that another shape is allowed to be dropped</remarks>
     Public Function GetRackShape()
         Dim RackShape As Visio.Shape = Nothing
         Dim Shape As Visio.Shape
@@ -298,9 +298,9 @@ Module Utilities
         Return RackShape
     End Function
     ''' <summary>
-    ''' 
+    ''' A function to automagically create several pages with switches, wires and OPC and ODC. To test performance and if it worked.
     ''' </summary>
-    ''' <remarks></remarks>
+    ''' <remarks>Just for testing</remarks>
     Public Sub Magic()
 
         Dim Document As Visio.Document = Globals.ThisAddIn.Application.Documents.Item(1)
@@ -500,14 +500,14 @@ Module Utilities
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Set the OPC information of the second into the first. 
     ''' </summary>
-    ''' <param name="OPCShape"></param>
-    ''' <param name="OPCCopy"></param>
-    ''' <param name="ODC"></param>
-    ''' <param name="otherDocumentPath"></param>
-    ''' <param name="firstDocumentPath"></param>
-    ''' <remarks></remarks>
+    ''' <param name="OPCShape">The first OPC shape</param>
+    ''' <param name="OPCCopy">The second OPC shape</param>
+    ''' <param name="ODC">Bool to tell if it is an Off Document Connector</param>
+    ''' <param name="otherDocumentPath">The second document path</param>
+    ''' <param name="firstDocumentPath">The first document path</param>
+    ''' <remarks>If not an ODC the documentpaths are the same</remarks>
     Private Sub TransferOPCInfo(ByRef OPCShape As Visio.Shape, ByRef OPCCopy As Visio.Shape, _
                                 ByVal ODC As Boolean, Optional ByVal otherDocumentPath As String = "", _
                                 Optional ByVal firstDocumentPath As String = "")
@@ -583,6 +583,14 @@ Module Utilities
         End If
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="shape"></param>
+    ''' <param name="cellName"></param>
+    ''' <param name="section"></param>
+    ''' <param name="cellValue"></param>
+    ''' <remarks></remarks>
     Private Sub CheckAndAddCellRow(ByRef shape As Visio.Shape, ByVal cellName As String, ByVal section As Visio.VisSectionIndices, Optional ByVal cellValue As String = "")
 
         Dim SectionName As String = ""
@@ -664,14 +672,15 @@ Module Utilities
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Delete all the pages that belongs to a chassis
     ''' </summary>
-    ''' <param name="shape"></param>
+    ''' <param name="shape">The chassis shape</param>
     ''' <remarks></remarks>
     Public Sub DeleteChassisPages(ByRef shape As Visio.Shape)
 
         Dim Page As Visio.Page
 
+        ' Go through every chassis page in the chassis shape and delete the page that is linked to it.
         For Each ChildShape As Visio.Shape In shape.Shapes
             If ChildShape.Cells("User.msvShapeCategories").ResultStr("") = "Chassis Switch Page" Then
                 Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.ItemU(ChildShape.Hyperlinks("OffPageConnector").SubAddress)
@@ -683,23 +692,24 @@ Module Utilities
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Change properties to the page when created.
     ''' </summary>
-    ''' <param name="page"></param>
+    ''' <param name="page">The created page</param>
     ''' <remarks></remarks>
     Public Sub PreparePage(ByRef page As Visio.Page)
 
+        ' Keep the size of the page. Not allowing changes
         page.PageSheet.Cells("DrawingSizeType").Formula = "=3"
         page.PageSheet.Cells("DrawingResizeType").Formula = "=2"
 
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Downloads a file and saves it.
     ''' </summary>
-    ''' <param name="URL"></param>
-    ''' <param name="SaveAs"></param>
-    ''' <remarks></remarks>
+    ''' <param name="URL">The URL to the file that will be downloaded</param>
+    ''' <param name="SaveAs">Where to save the file and what name it should have</param>
+    ''' <remarks>Just temporary</remarks>
     Public Sub DownloadFile(ByVal URL As String, ByVal saveAs As String)
         Try
             Dim WebClient As New System.Net.WebClient()
