@@ -2,9 +2,9 @@
 
 
     ''' <summary>
-    ''' 
+    ''' Creating a dialog for the user when an OPC has been dropped in the document, then does everything that is needed for the OPC.
     ''' </summary>
-    ''' <param name="OPCShape"></param>
+    ''' <param name="OPCShape">The shape that has been dropped</param>
     ''' <remarks></remarks>
     Public Sub HandleOffPageConnector(OPCShape As Visio.Shape)
         Static NoDialog As Integer = 0
@@ -52,14 +52,14 @@
 
     End Sub
     ''' <summary>
-    ''' 
+    ''' Create the second OPC and drop it where the user wanted it. Create and move information that link these two OPC/ODC
     ''' </summary>
-    ''' <param name="OPCShape"></param>
-    ''' <param name="otherDocumentName"></param>
-    ''' <param name="pageName"></param>
-    ''' <param name="ODC"></param>
-    ''' <param name="newPageName"></param>
-    ''' <param name="OPCType"></param>
+    ''' <param name="OPCShape">The shape that was dropped</param>
+    ''' <param name="otherDocumentName">The other document if it was and ODC</param>
+    ''' <param name="pageName">The original page</param>
+    ''' <param name="ODC">ODC or not</param>
+    ''' <param name="newPageName">The other page</param>
+    ''' <param name="OPCType">What kind of OPC</param>
     ''' <remarks></remarks>
     Private Sub CreateOffPageConnector(ByRef OPCShape As Visio.Shape, ByVal otherDocumentName As String, ByVal pageName As String, ByVal ODC As Boolean, ByVal newPageName As String, ByVal OPCType As String)
 
@@ -137,10 +137,10 @@
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Update the OPC when a wire has been connected
     ''' </summary>
-    ''' <param name="OPC"></param>
-    ''' <param name="wireShape"></param>
+    ''' <param name="OPC">The OPC shape</param>
+    ''' <param name="wireShape">The wire shape</param>
     ''' <remarks></remarks>
     Public Sub UpdateOPC(ByRef OPC As Visio.Shape, ByRef wireShape As Visio.Shape)
 
@@ -163,9 +163,9 @@
 
 
     ''' <summary>
-    ''' 
+    ''' Synchronize information between the two OPC's
     ''' </summary>
-    ''' <param name="OPC"></param>
+    ''' <param name="OPC">The first OPC</param>
     ''' <remarks></remarks>
     Private Sub SynchOPC(ByRef OPC As Visio.Shape, ByVal wireShape As Visio.Shape)
 
@@ -242,10 +242,10 @@
 
     End Sub
     ''' <summary>
-    ''' 
+    ''' Find the other OPC
     ''' </summary>
-    ''' <param name="OPC"></param>
-    ''' <returns></returns>
+    ''' <param name="OPC">The first OPC</param>
+    ''' <returns>The second OPC</returns>
     ''' <remarks></remarks>
     Private Function GetOtherOPC(ByVal OPC As Visio.Shape) As Visio.Shape
         Dim Document As Visio.Document
@@ -285,9 +285,9 @@
 
     End Function
     ''' <summary>
-    ''' 
+    ''' Delete the other OPC
     ''' </summary>
-    ''' <param name="OPC"></param>
+    ''' <param name="OPC">The first OPC</param>
     ''' <remarks></remarks>
     Public Sub DeleteOtherOPC(ByRef OPC As Visio.Shape)
 
@@ -304,9 +304,9 @@
         End If
     End Sub
     ''' <summary>
-    ''' 
+    ''' Deletes all the OPC's on a page when a page has been deleted
     ''' </summary>
-    ''' <param name="page"></param>
+    ''' <param name="page">The page that has been deleted</param>
     ''' <remarks></remarks>
     Public Sub DeleteAllOPCOnPage(ByRef page As Visio.Page)
 
