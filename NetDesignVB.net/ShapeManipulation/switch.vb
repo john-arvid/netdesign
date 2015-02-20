@@ -77,7 +77,6 @@
         RackShape = GetRackShape()
         If Not RackShape Is Nothing Then
             switchShape.Cells(_RackLocation).Formula = "=" + RackShape.Name + "!" + _RackLocation
-            MsgBox(switchShape.Cells(_RackLocation).Formula)
         End If
 
         If document Is Nothing Then
