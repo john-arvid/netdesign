@@ -107,6 +107,8 @@
             Next
         End If
 
+        Call UpdateRackText(rackShape)
+
     End Sub
     ''' <summary>
     ''' 

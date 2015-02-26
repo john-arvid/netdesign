@@ -264,21 +264,23 @@
     ''' </summary>
     ''' <param name="rackShape">The dropped rack shape</param>
     ''' <remarks></remarks>
-    Public Sub ValidateRack(ByRef rackShape As Visio.Shape)
+    Public Function ValidateRack(ByRef rackShape As Visio.Shape)
 
         If CountShapesOnPageByName("Rack") > 1 Then
             MsgBox("Can only be one rack on the page!")
             rackShape.Delete()
+            Return False
         ElseIf Globals.ThisAddIn.Application.ActivePage.Shapes("ThePage").CellExists("User.IsPartOfChassisSwitch", False) Then
             If Globals.ThisAddIn.Application.ActivePage.Shapes("ThePage").Cells("User.IsPartOfChassisSwitch").Result("") = 1 Then
                 MsgBox("You can't put a rack in a blade!")
                 rackShape.Delete()
+                Return False
             End If
-            End If
+        End If
 
+        Return True
 
-
-    End Sub
+    End Function
 
     ''' <summary>
     ''' Check if there is any other shape with the same name in the document

@@ -113,7 +113,8 @@
                     Call handleWire(shape)
 
                 Case "Rack"
-                    Call ValidateRack(shape)
+                    'Call ValidateRack(shape)
+                    Call HandleRack(shape)
 
                 Case "Chassis Switch"
                     Call HandleChassisSwitch(shape)

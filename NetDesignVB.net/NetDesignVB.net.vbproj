@@ -30,12 +30,12 @@
     <DefineConstants>VSTO40</DefineConstants>
     <StartupObject>
     </StartupObject>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <IsWebBootstrapper>True</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <PublishUrl>Z:\Deploy\</PublishUrl>
-    <InstallUrl />
+    <InstallUrl>http://www.stud.hig.no/~110223/publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.29</ApplicationVersion>
+    <ApplicationVersion>1.0.0.33</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -274,6 +274,7 @@
     <Compile Include="ShapeManipulation\Copy of switch.vb" />
     <Compile Include="ShapeManipulation\Port.vb" />
     <Compile Include="ShapeManipulation\Processor.vb" />
+    <Compile Include="ShapeManipulation\Rack.vb" />
     <Compile Include="ShapeManipulation\ShapeEdit.vb" />
     <Compile Include="ShapeManipulation\switch.vb" />
     <Compile Include="ShapeManipulation\cables.vb" />
