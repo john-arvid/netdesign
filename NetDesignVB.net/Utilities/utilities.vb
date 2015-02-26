@@ -290,7 +290,7 @@ Module Utilities
 
 
         'Add the shape text lock, force since it's guarded
-        wireShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
+        'wireShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
 
     End Sub
     ''' <summary>
