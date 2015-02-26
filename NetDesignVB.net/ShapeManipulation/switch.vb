@@ -259,6 +259,14 @@
                 ' Change the position for the next port
                 PointX = PointX + 2 * PortSize
 
+                ' Change the text of the port
+                newport.Cells("LockTextEdit").Formula = 0
+                newport.Text = newport.Cells("User.PortTitlePrefix").ResultStr("") + j.ToString()
+                newport.Cells("LockTextEdit").Formula = 1
+
+                ' Change the portnumber
+                newport.Cells("Prop.PortNumber").Formula = j
+
                 ' Add the port to the list
                 portList.Add(newport)
             Next

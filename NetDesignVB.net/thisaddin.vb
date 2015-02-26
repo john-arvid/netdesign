@@ -14,7 +14,7 @@ Public Class ThisAddIn
         '    MsgBox("First time running!")
         'End If
 
-        Dim DialogResult As Integer = MsgBox("Do you want to enable NetDesign? test", MsgBoxStyle.YesNo)
+        Dim DialogResult As Integer = MsgBox("Do you want to enable NetDesign, Brian?", MsgBoxStyle.YesNo)
 
         If DialogResult = MsgBoxResult.No Then
             Exit Sub
