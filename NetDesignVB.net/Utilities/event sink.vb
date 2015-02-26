@@ -593,74 +593,74 @@ Imports System
                     subjectApplication = Nothing
             End Select
 
-            ' get a description for this event code
-            message = getEventDescription(eventCode)
+            '    ' get a description for this event code
+            '    message = getEventDescription(eventCode)
 
-            ' append the name of the subject object
-            If (name.Length > 0) Then
-                message += ": " + name
-            End If
+            '    ' append the name of the subject object
+            '    If (name.Length > 0) Then
+            '        message += ": " + name
+            '    End If
 
-            ' append event info when it is available
-            If (Not subjectApplication Is Nothing) Then
+            '    ' append event info when it is available
+            '    If (Not subjectApplication Is Nothing) Then
 
-                eventInformation = subjectApplication.EventInfo( _
-                    Microsoft.Office.Interop.Visio.VisEventCodes. _
-                    visEvtIdMostRecent)
+            '        eventInformation = subjectApplication.EventInfo( _
+            '            Microsoft.Office.Interop.Visio.VisEventCodes. _
+            '            visEvtIdMostRecent)
 
-                If (Not eventInformation Is Nothing) Then
-                    message += tab + eventInformation
-                End If
-            End If
+            '        If (Not eventInformation Is Nothing) Then
+            '            message += tab + eventInformation
+            '        End If
+            '    End If
 
-            ' append moreInformation when it is available
-            If (Not moreInformation Is Nothing) Then
-                message += tab + moreInformation.ToString()
-            End If
+            '    ' append moreInformation when it is available
+            '    If (Not moreInformation Is Nothing) Then
+            '        message += tab + moreInformation.ToString()
+            '    End If
 
-            ' get the targetArgs string from the event object. targetArgs
-            ' are added to the event object in the AddAdvise method
-            Dim events As Microsoft.Office.Interop.Visio.EventList
-            Dim thisEvent As Microsoft.Office.Interop.Visio.Event
-            Dim sourceType As String
-            Dim targetArgs As String
+            '    ' get the targetArgs string from the event object. targetArgs
+            '    ' are added to the event object in the AddAdvise method
+            '    Dim events As Microsoft.Office.Interop.Visio.EventList
+            '    Dim thisEvent As Microsoft.Office.Interop.Visio.Event
+            '    Dim sourceType As String
+            '    Dim targetArgs As String
 
-            sourceType = source.GetType().FullName
-            If (sourceType = _
-                "Microsoft.Office.Interop.Visio.ApplicationClass") Then
+            '    sourceType = source.GetType().FullName
+            '    If (sourceType = _
+            '        "Microsoft.Office.Interop.Visio.ApplicationClass") Then
 
-                events = CType(source, Microsoft.Office.Interop.Visio. _
-                Application).EventList
-            ElseIf (sourceType = _
-                "Microsoft.Office.Interop.Visio.DocumentClass") Then
+            '        events = CType(source, Microsoft.Office.Interop.Visio. _
+            '        Application).EventList
+            '    ElseIf (sourceType = _
+            '        "Microsoft.Office.Interop.Visio.DocumentClass") Then
 
-                events = CType(source, Microsoft.Office.Interop.Visio. _
-                Document).EventList
-            ElseIf (sourceType = _
-                "Microsoft.Office.Interop.Visio.PageClass") Then
+            '        events = CType(source, Microsoft.Office.Interop.Visio. _
+            '        Document).EventList
+            '    ElseIf (sourceType = _
+            '        "Microsoft.Office.Interop.Visio.PageClass") Then
 
-                events = CType(source, Microsoft.Office.Interop.Visio. _
-                Page).EventList
-            Else
-                events = Nothing
-            End If
+            '        events = CType(source, Microsoft.Office.Interop.Visio. _
+            '        Page).EventList
+            '    Else
+            '        events = Nothing
+            '    End If
 
-            If (Not events Is Nothing) Then
+            '    If (Not events Is Nothing) Then
 
-                thisEvent = events.ItemFromID(eventId)
-                targetArgs = thisEvent.TargetArgs
+            '        thisEvent = events.ItemFromID(eventId)
+            '        targetArgs = thisEvent.TargetArgs
 
-                ' append targetArgs when it is available
-                If (targetArgs.Length > 0) Then
-                    message += " " + targetArgs
-                End If
-            End If
+            '        ' append targetArgs when it is available
+            '        If (targetArgs.Length > 0) Then
+            '            message += " " + targetArgs
+            '        End If
+            '    End If
 
-            ' Write the event info to the output window
-            System.Diagnostics.Debug.WriteLine(message)
+            '    ' Write the event info to the output window
+            '    System.Diagnostics.Debug.WriteLine(message)
 
-            ' if this is a QueryCancel event then prompt the user
-            returnValue = getQueryCancelResponse(eventCode, subject)
+            '    ' if this is a QueryCancel event then prompt the user
+            '    returnValue = getQueryCancelResponse(eventCode, subject)
 
         Catch err As System.Runtime.InteropServices.COMException
             System.Diagnostics.Debug.WriteLine(err.Message)

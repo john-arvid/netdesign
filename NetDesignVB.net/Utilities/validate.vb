@@ -293,6 +293,10 @@
                 If portShape.Text = shape.Text Then
                     MsgBox("You can't have the same two ports in a switch!")
                     portShape.Cells(_PortNumber).Result(Visio.VisUnitCodes.visNumber) = 99
+                    ' Update the port text
+                    portShape.Cells("LockTextEdit").Formula = 0
+                    portShape.Text = portShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
+                    portShape.Cells("LockTextEdit").Formula = 1
                 End If
             End If
         Next
