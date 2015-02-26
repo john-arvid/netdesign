@@ -35,7 +35,7 @@ Public Class test
 
         For Each shape As Visio.Shape In page.Shapes
             If shape.CellExists(_ShapeName, 0) Then
-                If activeShape.Cells(_ShapeName).ResultStr("") = shape.Cells(_ShapeName).ResultStr("") Then
+                If activeShape.Cells(_ShapeName).ResultStr(Visio.VisUnitCodes.visUnitsString) = shape.Cells(_ShapeName).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
                     i += 1
                 End If
             End If

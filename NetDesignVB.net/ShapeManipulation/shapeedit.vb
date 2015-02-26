@@ -16,7 +16,7 @@
         ' Update all the wires connected to the switch
         For Each Shape In switchShape.Shapes
             If Shape.CellExists(_ShapeCategories, 0) Then
-                If Shape.Cells(_ShapeCategories).ResultStr("") = "Port" Then
+                If Shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Port" Then
                     If Shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll1D, "Wire").Length > 0 Then
                         Call UpdateWire(Page.Shapes.ItemFromID(Shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll1D, "Wire")(0)))
                     End If
@@ -38,7 +38,7 @@
 
         ' Update the port text
         shape.Cells("LockTextEdit").Formula = 0
-        shape.Text = shape.Cells("User.TextTitle").ResultStr("")
+        shape.Text = shape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
         shape.Cells("LockTextEdit").Formula = 1
 
         ' If port is connected to a wire, update the wire
@@ -100,7 +100,7 @@
         If cell Is rackShape.Cells("Prop.RackLocation") Then
             For Each shape As Visio.Shape In Globals.ThisAddIn.Application.ActivePage.Shapes
                 If shape.CellExists(_ShapeCategories, 0) Then
-                    If shape.Cells(_ShapeCategories).ResultStr("") = "Wire" Then
+                    If shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire" Then
                         Call UpdateWire(shape)
                     End If
                 End If
@@ -125,9 +125,9 @@
         OldText = shape.Text
 
         If cell Is shape.Cells(_ShapeName) Then
-            NewText = cell.ResultStr("") + " - " + shape.Cells(_ShapeModel).ResultStr("")
+            NewText = cell.ResultStr(Visio.VisUnitCodes.visUnitsString) + " - " + shape.Cells(_ShapeModel).ResultStr(Visio.VisUnitCodes.visUnitsString)
         ElseIf cell Is shape.Cells(_ShapeModel) Then
-            NewText = shape.Cells(_ShapeName).ResultStr("") + " - " + cell.ResultStr("")
+            NewText = shape.Cells(_ShapeName).ResultStr(Visio.VisUnitCodes.visUnitsString) + " - " + cell.ResultStr(Visio.VisUnitCodes.visUnitsString)
         Else
             Exit Sub
         End If

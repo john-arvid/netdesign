@@ -157,21 +157,21 @@ Module Utilities
 
         If shape.CellExists(_ShapeCategories, 0) AndAlso (cell.Section = visSectionProp) Then
 
-            If shape.Cells(_ShapeCategories).ResultStr("") = "Switch" Then
+            If shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Switch" Then
                 Call UpdateSwitch(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Processor" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Processor" Then
                 Call UpdateSwitch(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Blade" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
                 Call UpdateSwitch(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Rack" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Rack" Then
                 Call UpdateRack(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Wire" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire" Then
                 Call UpdateWire(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Port" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Port" Then
                 Call UpdatePort(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Chassis Switch" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Switch" Then
                 Call UpdateSwitch(shape, cell)
-            ElseIf shape.Cells(_ShapeCategories).ResultStr("") = "Chassis Processor" Then
+            ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
                 Call UpdateSwitch(shape, cell)
             End If
         End If
@@ -206,10 +206,10 @@ Module Utilities
         'TODO: Add when disconnecting that the wire looses information.
 
         ' Fromsheet is always a wire, so test only on tosheet
-        If connections.ToSheet.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+        If connections.ToSheet.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
             'Wire connected to an OPC, transfer information from the OPC to the wire
             Call UpdateOPC(connections.ToSheet, connections.FromSheet)
-        ElseIf connections.ToSheet.Cells(_ShapeCategories).ResultStr("") = "Port" Then
+        ElseIf connections.ToSheet.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Port" Then
             If connecting Then
                 connections.ToSheet.CellsU("FillForegndTrans").FormulaForceU = "0%"
             Else
@@ -230,10 +230,10 @@ Module Utilities
     ''' <remarks></remarks>
     Public Sub SynchWire(ByRef connectedShape As Visio.Shape, ByRef wireShape As Visio.Shape)
 
-        If connectedShape.Cells(_ShapeCategories).ResultStr("") = "Port" Then
+        If connectedShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Port" Then
             wireShape.Cells(_SwitchName).Formula = """" + connectedShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             wireShape.Cells(_PortName).Formula = """" + connectedShape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
-        ElseIf connectedShape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+        ElseIf connectedShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
             wireShape.Cells(_SwitchName).Formula = """" + connectedShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             wireShape.Cells(_PortName).Formula = """" + connectedShape.Cells(_PortName).ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
         End If
@@ -261,15 +261,31 @@ Module Utilities
             OutgoingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "")(0))
 
             ' Write the label with information from the two connected shapes (port's or OPC's)
-            If IncomingNode.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
-                wireShape.Text = IncomingNode.Text + "/" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text
-            ElseIf OutgoingNode.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+            If IncomingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
+                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+            ElseIf OutgoingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 wireShape.Text = OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             Else
                 wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             End If
-        Else
-            wireShape.Text = "Not complete yet!"
+        ElseIf wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "").Length = 1 Then
+            IncomingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0))
+
+            ' Write the label with information from the two connected shapes (port's or OPC's)
+            If IncomingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
+                wireShape.Text = "/" + IncomingNode.Text
+            Else
+                wireShape.Text = "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+            End If
+        ElseIf wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "").Length = 1 Then
+            OutgoingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "")(0))
+
+            ' Write the label with information from the two connected shapes (port's or OPC's)
+            If OutgoingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
+                wireShape.Text = OutgoingNode.Text + "/"
+            Else
+                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
+            End If
         End If
 
 
@@ -444,8 +460,8 @@ Module Utilities
             '    WireBundleCopy = Document.Pages.Item(i + 1).Drop(MasterBundle, 2 + (j / 3), 2)
 
             '    Call TransferOPCInfo(WireBundle.Shapes.Item(13), WireBundleCopy.Shapes.Item(13), False)
-            '    WireBundle.Shapes.Item(13).Text = RackShapeCopy.Cells("Prop.RackLocation").ResultStr("")
-            '    WireBundleCopy.Shapes.Item(13).Text = RackShape.Cells("Prop.RackLocation").ResultStr("")
+            '    WireBundle.Shapes.Item(13).Text = RackShapeCopy.Cells("Prop.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString)
+            '    WireBundleCopy.Shapes.Item(13).Text = RackShape.Cells("Prop.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString)
 
             '    For k As Integer = 1 To 12
             '        WireBundle.Shapes.Item(k).Cells("EndX").GlueTo(NextSwitch.Shapes.Item((k + Multiplier)).Cells("AlignBottom"))
@@ -685,7 +701,7 @@ Module Utilities
 
         ' Go through every chassis page in the chassis shape and delete the page that is linked to it.
         For Each ChildShape As Visio.Shape In shape.Shapes
-            If ChildShape.Cells(_ShapeCategories).ResultStr("") = "Chassis Switch Page" Then
+            If ChildShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Switch Page" Then
                 Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.ItemU(ChildShape.Hyperlinks("OffPageConnector").SubAddress)
                 Page.Delete(1)
             End If

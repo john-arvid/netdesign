@@ -69,7 +69,7 @@
         End Try
 
         ' Using the cell user.type instead of master since 
-        'If FromShape.Cells("User.Type").ResultStr("") = "Processor Test" And ToShape.Cells("User.Type").ResultStr("") = "Switch Test" Then
+        'If FromShape.Cells("User.Type").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Processor Test" And ToShape.Cells("User.Type").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Switch Test" Then
         '    'issue!
         '    Call AddIssue("Pro-Switch", ruleSet, page, wireShape)
         'End If
@@ -89,29 +89,29 @@
                 Call AddIssue("Wireloop", ruleSet, page, wireShape)
             End If
         End If
-        
 
-        If FromShape.Cells(_MediaType).ResultStr("") <> wireShape.Cells(_MediaType).ResultStr("") Then
+
+        If FromShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) <> wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             Call AddIssue("MediaType", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells(_MediaType).ResultStr("") <> wireShape.Cells(_MediaType).ResultStr("") Then
+        If ToShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) <> wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             Call AddIssue("MediaType", ruleSet, page, wireShape)
         End If
 
-        If FromShape.Cells(_TransmissionSpeed).ResultStr("") <> wireShape.Cells(_TransmissionSpeed).ResultStr("") Then
+        If FromShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) <> wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells(_TransmissionSpeed).ResultStr("") <> wireShape.Cells(_TransmissionSpeed).ResultStr("") Then
+        If ToShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) <> wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             Call AddIssue("MediaSpeed", ruleSet, page, wireShape)
         End If
 
-        If FromShape.Cells(_Purpose).ResultStr("") <> wireShape.Cells(_Purpose).ResultStr("") Then
+        If FromShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) <> wireShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             Call AddIssue("MediaPurpose", ruleSet, page, wireShape)
         End If
 
-        If ToShape.Cells(_Purpose).ResultStr("") <> wireShape.Cells(_Purpose).ResultStr("") Then
+        If ToShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) <> wireShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             Call AddIssue("MediaPurpose", ruleSet, page, wireShape)
         End If
 
@@ -140,7 +140,7 @@
         ToShape = connections.ToSheet
 
         'If connected to an OPC
-        If ToShape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+        If ToShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
             Exit Sub
         End If
 
@@ -162,17 +162,17 @@
 
 
 
-            If FromShape.Cells("User.SwitchType").ResultStr("") = "Processor" Then
-                If OtherShape.Cells("User.SwitchType").ResultStr("") = "Processor" Then
+            If FromShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Processor" Then
+                If OtherShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Processor" Then
                     MsgBox("Processor connected to Processor is deprecated, think about it.")
-                ElseIf OtherShape.Cells("User.SwitchType").ResultStr("") = "Switch" Then
+                ElseIf OtherShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Switch" Then
                     MsgBox("Hierarchy problem, Processor can not be source when connected to switch")
                     wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
-                ElseIf OtherShape.Cells("User.SwitchType").ResultStr("") = "Blade" Then
+                ElseIf OtherShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
                     MsgBox("Hierarchy problem, Processor can not be source when connected to router")
                     wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
                 End If
-            ElseIf FromShape.Cells("User.SwitchType").ResultStr("") = "Switch" AndAlso OtherShape.Cells("User.SwitchType").ResultStr("") = "Blade" Then
+            ElseIf FromShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Switch" AndAlso OtherShape.Cells("User.SwitchType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
                 MsgBox("Hierarchy problem, switch can not be source when connected to router")
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
             End If
@@ -187,7 +187,7 @@
 
 
 
-        If wireShape.Cells(_MediaType).ResultStr("") <> ToShape.Cells(_MediaType).ResultStr("") Then
+        If wireShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) <> ToShape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             MsgBox("Media type not same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -201,7 +201,7 @@
                 'MsgBox(ex.Message)
             End Try
 
-        ElseIf wireShape.Cells(_TransmissionSpeed).ResultStr("") <> ToShape.Cells(_TransmissionSpeed).ResultStr("") Then
+        ElseIf wireShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) <> ToShape.Cells(_TransmissionSpeed).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             MsgBox("Transmission speed is not the same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -215,7 +215,7 @@
                 'MsgBox(ex.Message)
             End Try
 
-        ElseIf wireShape.Cells(_Purpose).ResultStr("") <> ToShape.Cells(_Purpose).ResultStr("") Then
+        ElseIf wireShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) <> ToShape.Cells(_Purpose).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
             MsgBox("Media purpose is not the same, change and reconnect")
             Try
                 wireShape.Disconnect(Visio.VisConnectorEnds.visConnectorBeginpoint, 2, 2, Visio.VisUnitCodes.visCentimeters)
@@ -309,7 +309,7 @@
             For Each Page In Document.Pages
                 For Each Shape In Page.Shapes
                     If Shape.CellExists(_ShapeName, False) Then
-                        If String.Compare(name, Shape.Cells(_ShapeName).ResultStr(""), False) = 0 Then
+                        If String.Compare(name, Shape.Cells(_ShapeName).ResultStr(Visio.VisUnitCodes.visUnitsString), False) = 0 Then
                             Return False
                         End If
                     End If

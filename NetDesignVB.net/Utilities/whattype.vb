@@ -28,12 +28,12 @@
         'If (shape.CellExists("User.ATLAS_TDAQ_ObjType", 0)) Then
 
         '    ' Do a check for every known type
-        '    Select Case (shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '    Select Case (shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        ' If it is a chassis/chassy then it have to be one of these
         '        Case shpSmartGroupChassis, shpSmartGroupChassy
 
-        '            Select Case (shape.Cells("User.SmartGroupType.Prompt").ResultStr(""))
+        '            Select Case (shape.Cells("User.SmartGroupType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
         '                Case shpSwitch
         '                    If Not shape.Master Is Nothing Then
         '                        If shape.Master.NameU = "Switch" Then
@@ -41,10 +41,10 @@
         '                        End If
         '                    End If
         '                Case shpSwitchBlade
-        '                    MsgBox(shape.Cells("User.SmartGroupType.Prompt").ResultStr(""))
+        '                    MsgBox(shape.Cells("User.SmartGroupType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '                Case shpProcessor
-        '                    'MsgBox(shape.Cells("User.SmartGroupType.Prompt").ResultStr(""))
+        '                    'MsgBox(shape.Cells("User.SmartGroupType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
         '                    If Not shape.Master Is Nothing Then
         '                        If shape.Master.NameU = "Processor" Then
         '                            Call HandleProcessor(shape)
@@ -52,49 +52,49 @@
         '                    End If
 
         '                Case shpChassisSwitch
-        '                    MsgBox(shape.Cells("User.SmartGroupType.Prompt").ResultStr(""))
+        '                    MsgBox(shape.Cells("User.SmartGroupType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
         '            End Select
 
         '        Case shpChassisSwitchPageLink
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpDrillUpConnector
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpNextPageConnector
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpOPC
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpPort
         '            'MsgBox(shape.NameU)
 
         '        Case shpPrevPageConnector
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpRackAsPage
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpThickLine
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpUndefined
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpThickLine
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpWire
 
         '        Case shpWirePortLabel
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '        Case shpWireSignalLabel
-        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            MsgBox(shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '            'Case Else
-        '            'MsgBox("Not found: " + shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(""))
+        '            'MsgBox("Not found: " + shape.Cells("User.ATLAS_TDAQ_ObjType.Prompt").ResultStr(Visio.VisUnitCodes.visUnitsString))
 
         '    End Select
 
@@ -129,7 +129,7 @@
         End If
 
         If shape.CellExists(_ShapeCategories, 0) Then
-            If shape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+            If shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 Call HandleOffPageConnector(shape)
             End If
         End If

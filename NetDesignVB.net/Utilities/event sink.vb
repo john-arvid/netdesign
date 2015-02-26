@@ -154,13 +154,13 @@ Imports System
                            Interop.Visio.Shape)
 
                     If subjectShape.CellExists(_ShapeCategories, 0) Then
-                        If subjectShape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+                        If subjectShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                             Call DeleteOtherOPC(subjectShape)
-                        ElseIf subjectShape.Cells(_ShapeCategories).ResultStr("") = "Switch" Then
+                        ElseIf subjectShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Switch" Then
                             Call DeletePointingOPC(subjectShape)
-                        ElseIf subjectShape.Cells(_ShapeCategories).ResultStr("") = "Chassis Switch" Then
+                        ElseIf subjectShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Switch" Then
                             Call DeleteChassisPages(subjectShape)
-                        ElseIf subjectShape.Cells(_ShapeCategories).ResultStr("") = "Chassis Processor" Then
+                        ElseIf subjectShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
                             Call DeleteChassisPages(subjectShape)
                         End If
                     End If

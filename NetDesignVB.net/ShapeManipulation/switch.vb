@@ -17,7 +17,7 @@
         Dim SwitchForm As New FormNDAskForSwitch
         ' Replaces ?? in the form
         If switchShape.CellExists(_ShapeCategories, 0) Then
-            changeNameInForm(switchShape.Cells(_ShapeCategories).ResultStr(""), SwitchForm)
+            changeNameInForm(switchShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString), SwitchForm)
         End If
 
         ' Validates only when I says so
@@ -47,7 +47,7 @@
         SwitchForm = Nothing
 
     End Sub
-    
+
     ''' <summary>
     ''' Updates the switch with the user input, calls the AddPortToSwitch 
     ''' function, and alters the switch size according to the number of ports.
@@ -261,7 +261,7 @@
 
                 ' Change the text of the port
                 newport.Cells("LockTextEdit").Formula = 0
-                newport.Text = newport.Cells("User.PortTitlePrefix").ResultStr("") + j.ToString()
+                newport.Text = newport.Cells("User.PortTitlePrefix").ResultStr(Visio.VisUnitCodes.visUnitsString) + j.ToString()
                 newport.Cells("LockTextEdit").Formula = 1
 
                 ' Change the portnumber
@@ -288,10 +288,10 @@
 
         ' Set a reference to the switchparent cell's, this is done with the !
         For Each Port In portList
-            Port.Cells(_RackLocation).Formula = """=" + switchParent.Name + "!" + _RackLocation + """"
-            Port.Cells(_SwitchName).Formula = """=" + switchParent.Name + "!Prop.Name" + """"
-            Port.Cells("User.UPosition").Formula = """=" + switchParent.Name + "!Prop.UPosition" + """"
-            Port.Cells("User.SwitchType").Formula = """=" + switchParent.Name + "!" + _ShapeCategories + """"
+            Port.Cells(_RackLocation).Formula = "=" + switchParent.Name + "!" + _RackLocation
+            Port.Cells(_SwitchName).Formula = "=" + switchParent.Name + "!Prop.Name"
+            Port.Cells("User.UPosition").Formula = "=" + switchParent.Name + "!Prop.UPosition"
+            Port.Cells("User.SwitchType").Formula = "=" + switchParent.Name + "!" + _ShapeCategories
         Next
 
     End Sub
@@ -309,8 +309,8 @@
         For i As Integer = Counter To 1 Step -1
             Shape = Page.Shapes.Item(i)
             If Shape.CellExists(_ShapeCategories, 0) Then
-                If Shape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
-                    If Shape.Cells(_SwitchName).ResultStr("") = switchShape.Cells(_ShapeName).ResultStr("") Then
+                If Shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
+                    If Shape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) = switchShape.Cells(_ShapeName).ResultStr(Visio.VisUnitCodes.visUnitsString) Then
                         Shape.Delete()
                     End If
                 End If

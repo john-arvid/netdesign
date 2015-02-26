@@ -16,7 +16,7 @@
 
         ' Replaces ?? in the form
         If chassisSwitchShape.CellExists(_ShapeCategories, 0) Then
-            changeNameInForm(chassisSwitchShape.Cells(_ShapeCategories).ResultStr(""), ChassisSwitchForm)
+            changeNameInForm(chassisSwitchShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString), ChassisSwitchForm)
         End If
 
         ChassisSwitchForm.ShowDialog()
@@ -79,7 +79,7 @@
         For i As Integer = 1 To form.TextBoxPages.Text
             'Find the last chassis page link
             For Each shape As Visio.Shape In chassisSwitchShape.Shapes
-                If shape.Cells(_ShapeCategories).ResultStr("") = "Chassis Switch Page" Then
+                If shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Switch Page" Then
                     LastChassisPage = shape
                 Else
                     ChassisSwitchBase = shape

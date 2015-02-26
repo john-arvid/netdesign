@@ -27,11 +27,11 @@ Module Report
 
         For Each Shape In page.Shapes
             If Shape.CellExists(_ShapeCategories, 0) Then
-                If Shape.Cells(_ShapeCategories).ResultStr("") = "Wire" Then
+                If Shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire" Then
                     If Shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll2D, "").Length > 1 Then
                         FromShapeId = Shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0)
                         FromShape = page.Shapes.ItemFromID(FromShapeId)
-                        If Not FromShape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+                        If Not FromShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                             Call GetInformation(Shape, ShapeInformation, Seperator, page, checkedItems)
                         End If
                         'ElseIf check to include loose wires
@@ -71,9 +71,9 @@ Module Report
         For Each item In checkedItems
             Select Case item.ToString()
                 Case "Rack Location"
-                    shapeInformation.Append(ToShape.Cells(_RackLocation).ResultStr(""))
+                    shapeInformation.Append(ToShape.Cells(_RackLocation).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Switch Name"
-                    shapeInformation.Append(ToShape.Cells(_SwitchName).ResultStr(""))
+                    shapeInformation.Append(ToShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Switch Type"
 
                 Case "Switch Port Number"
@@ -93,19 +93,19 @@ Module Report
                 Case "Processor Port Media"
 
                 Case "Wire ID"
-                    shapeInformation.Append(shape.Cells(_WireID).ResultStr(""))
+                    shapeInformation.Append(shape.Cells(_WireID).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Wire Length"
 
                 Case "Wire Type"
 
                 Case "Wire Media"
-                    shapeInformation.Append(shape.Cells(_MediaType).ResultStr(""))
+                    shapeInformation.Append(shape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Port Type"
 
                 Case "Port Media"
 
                 Case "U Position"
-                    shapeInformation.Append(ToShape.Cells("User.UPosition").ResultStr(""))
+                    shapeInformation.Append(ToShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString))
             End Select
             shapeInformation.Append(seperator)
         Next
@@ -114,9 +114,9 @@ Module Report
         For Each item In checkedItems
             Select Case item.ToString()
                 Case "Rack Location"
-                    shapeInformation.Append(FromShape.Cells(_RackLocation).ResultStr(""))
+                    shapeInformation.Append(FromShape.Cells(_RackLocation).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Switch Name"
-                    shapeInformation.Append(FromShape.Cells(_SwitchName).ResultStr(""))
+                    shapeInformation.Append(FromShape.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Switch Type"
 
                 Case "Switch Port Number"
@@ -136,19 +136,19 @@ Module Report
                 Case "Processor Port Media"
 
                 Case "Wire ID"
-                    shapeInformation.Append(shape.Cells(_WireID).ResultStr(""))
+                    shapeInformation.Append(shape.Cells(_WireID).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Wire Length"
 
                 Case "Wire Type"
 
                 Case "Wire Media"
-                    shapeInformation.Append(shape.Cells(_MediaType).ResultStr(""))
+                    shapeInformation.Append(shape.Cells(_MediaType).ResultStr(Visio.VisUnitCodes.visUnitsString))
                 Case "Port Type"
 
                 Case "Port Media"
 
                 Case "U Position"
-                    shapeInformation.Append(FromShape.Cells("User.UPosition").ResultStr(""))
+                    shapeInformation.Append(FromShape.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString))
             End Select
             shapeInformation.Append(seperator)
         Next

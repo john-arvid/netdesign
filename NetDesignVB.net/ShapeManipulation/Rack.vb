@@ -21,7 +21,7 @@
         'Remove the shape text lock, force since it's guarded
         ChildShape.CellsU("LockTextEdit").FormulaForce = "GUARD(0)"
 
-        ChildShape.Text = rack.Cells("Prop.RackName").ResultStr("") + " - " + rack.Cells("Prop.RackLocation").ResultStr("")
+        ChildShape.Text = rack.Cells("Prop.RackName").ResultStr(Visio.VisUnitCodes.visUnitsString) + " - " + rack.Cells("Prop.RackLocation").ResultStr(Visio.VisUnitCodes.visUnitsString)
 
 
 

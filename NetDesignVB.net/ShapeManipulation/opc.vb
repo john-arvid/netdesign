@@ -15,7 +15,7 @@
             Exit Sub
         End If
 
-        'If OPCShape.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
+        'If OPCShape.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire Bundle" Then
         '    OPCShape = OPCShape.Shapes.Item(13)
         'End If
 
@@ -44,7 +44,7 @@
                 OtherDocumentName = OPCForm.TextBoxFileName.Text
             End If
 
-            Call CreateOffPageConnector(OPCShape, OtherDocumentName, PageName, OPCForm.CheckBoxODC.Checked, NewPageName, OPCShape.Cells("User.OPCType").ResultStr(""))
+            Call CreateOffPageConnector(OPCShape, OtherDocumentName, PageName, OPCForm.CheckBoxODC.Checked, NewPageName, OPCShape.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString))
         End If
 
         OPCForm.Close()
@@ -88,7 +88,7 @@
         ''Set the OPC peer not to be reported, this will propegate through the connected wire.
         'OPCCopy.Cells("User.NotReport").Formula = 1
 
-        If OPCShape.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
+        If OPCShape.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire Bundle" Then
             OPCShape = OPCShape.Shapes.Item(13)
             OPCCopy = OPCCopy.Shapes.Item(13)
         End If
@@ -109,7 +109,7 @@
             OPCShape.Cells("User.OPCDDocID").Formula = """" + otherDocumentName + """"
             OPCCopy.Hyperlinks("OffPageConnector").Address = FirstDocument.Path + FirstDocument.Name
             OPCCopy.Cells("User.OPCDDocID").Formula = """" + FirstDocument.Path + FirstDocument.Name + """"
-            If OPCShape.Cells("User.OPCType").ResultStr("") = "Patch Panel" Then
+            If OPCShape.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Patch Panel" Then
                 OPCShape.Text = OtherDocument.Name + " : " + OPCCopy.ContainingPage.Name
                 OPCCopy.Text = FirstDocument.Name + " : " + OPCShape.ContainingPage.Name
             Else
@@ -121,7 +121,7 @@
         Else
             OPCShape.Hyperlinks("OffPageConnector").Address = ""
             OPCCopy.Hyperlinks("OffPageConnector").Address = ""
-            If OPCShape.Cells("User.OPCType").ResultStr("") = "Patch Panel" Then
+            If OPCShape.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Patch Panel" Then
                 OPCShape.Text = OPCCopy.ContainingPage.Name
                 OPCCopy.Text = OPCShape.ContainingPage.Name
             Else
@@ -132,7 +132,7 @@
             OPCCopy.CellsU("EventDblClick").Formula = "RUNADDONWARGS(""OPC"",""/CMD=2"")"
         End If
 
-        
+
 
     End Sub
 
@@ -144,17 +144,17 @@
     ''' <remarks></remarks>
     Public Sub UpdateOPC(ByRef OPC As Visio.Shape, ByRef wireShape As Visio.Shape)
 
-        If OPC.Cells("User.OPCType").ResultStr("") = "OPC" Then
+        If OPC.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
             'Call MoveInformation(OPC, wireShape)
             Call SynchOPC(OPC, wireShape)
             Call UpdateText(OPC, wireShape)
-        ElseIf OPC.Cells("User.OPCType").ResultStr("") = "Patch Panel Port" Then
+        ElseIf OPC.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Patch Panel Port" Then
             'Call MoveInformation(OPC, wireShape)
             Call SynchOPC(OPC, wireShape)
-        ElseIf OPC.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
+        ElseIf OPC.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire Bundle" Then
             'Call MoveInformation(OPC, wireShape)
             Call SynchOPC(OPC, wireShape)
-            wireShape.Cells(_WireID).Formula = """" + OPC.Cells("User.WireID").ResultStr("") + """"
+            wireShape.Cells(_WireID).Formula = """" + OPC.Cells("User.WireID").ResultStr(Visio.VisUnitCodes.visUnitsString) + """"
             'Call UpdateText(OPC, wireShape)
         End If
 
@@ -254,7 +254,7 @@
         Dim OPCParent As Visio.Shape
         Dim OtherOPCNumber As Integer
 
-        If OPC.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
+        If OPC.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire Bundle" Then
             OPCParent = OPC.Parent
             OtherOPCNumber = OPC.Cells("Prop.WireNumber").ResultInt("", 1)
         Else
@@ -275,9 +275,9 @@
             System.Console.Write(ex.Message)
         End Try
 
-        If OPCParent.Cells("User.OPCType").ResultStr("") = "Patch Panel Port" Then
+        If OPCParent.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Patch Panel Port" Then
             OtherOPC = OtherOPC.Shapes(OPC.Cells(_PortNumber).ResultInt("", 1))
-        ElseIf OPCParent.Cells("User.OPCType").ResultStr("") = "Wire Bundle" Then
+        ElseIf OPCParent.Cells("User.OPCType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Wire Bundle" Then
             OtherOPC = OtherOPC.Shapes(OtherOPCNumber)
         End If
 
@@ -317,7 +317,7 @@
         For i As Integer = Counter To 1 Step -1
             Shape = page.Shapes.Item(i)
             If Shape.CellExists(_ShapeCategories, 0) Then
-                If Shape.Cells(_ShapeCategories).ResultStr("") = "OPC" Then
+                If Shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                     Shape.Delete()
                 End If
             End If
