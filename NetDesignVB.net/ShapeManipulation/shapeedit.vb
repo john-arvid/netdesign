@@ -41,6 +41,8 @@
         shape.Text = shape.Cells("User.TextTitle").ResultStr(Visio.VisUnitCodes.visUnitsString)
         shape.Cells("LockTextEdit").Formula = 1
 
+        Call ValidatePort(shape)
+
         ' If port is connected to a wire, update the wire
         If shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll1D, "Wire").Length() > 0 Then
             WireShapeId = shape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesAll1D, "Wire")(0)

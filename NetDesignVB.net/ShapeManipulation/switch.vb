@@ -264,8 +264,6 @@
                 newport.Text = newport.Cells("User.PortTitlePrefix").ResultStr(Visio.VisUnitCodes.visUnitsString) + j.ToString()
                 newport.Cells("LockTextEdit").Formula = 1
 
-                ' Change the portnumber
-                newport.Cells("Prop.PortNumber").Formula = j
 
                 ' Add the port to the list
                 portList.Add(newport)

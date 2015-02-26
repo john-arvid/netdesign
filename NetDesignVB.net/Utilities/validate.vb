@@ -4,7 +4,7 @@
     ''' Goes through every shape in the document, checks rules and gives the
     ''' user feedback
     ''' </summary>
-    ''' <remarks></remarks>
+    ''' <remarks>This is only done when a shape is being dropped on the page</remarks>
     Public Sub validateRules(ByVal ruleSet As Visio.ValidationRuleSet)
 
         Dim Pages As Visio.Pages
@@ -25,6 +25,7 @@
                         Case "Processor"
 
                         Case "Rack"
+
 
                     End Select
                 End If
@@ -281,6 +282,22 @@
         Return True
 
     End Function
+
+
+    Public Sub ValidatePort(ByRef portShape As Visio.Shape)
+
+        Dim SwitchShape As Visio.Shape = portShape.Parent
+
+        For Each shape As Visio.Shape In SwitchShape.Shapes
+            If portShape.ID <> shape.ID Then
+                If portShape.Text = shape.Text Then
+                    MsgBox("You can't have the same two ports in a switch!")
+                    portShape.Cells(_PortNumber).Result(Visio.VisUnitCodes.visNumber) = 99
+                End If
+            End If
+        Next
+
+    End Sub
 
     ''' <summary>
     ''' Check if there is any other shape with the same name in the document

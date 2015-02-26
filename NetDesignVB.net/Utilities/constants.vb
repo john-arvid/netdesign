@@ -39,8 +39,10 @@
     Public Const _WireID As String = "Prop.WireID"
     Public Const _ShapeCategories As String = "User.msvShapeCategories"
     Public Const _SwitchName As String = "User.SwitchName"
+    ' OPC and Port shape 
     Public Const _PortName As String = "User.PortName"
-    Public Const _PortNumber As String = "User.PortNumber"
+    ' Port and Patch-Panel Port shape
+    Public Const _PortNumber As String = "Prop.PortNumber"
     Public Const _Purpose As String = "Prop.Purpose"
     Public Const _RackLocation As String = "User.RackLocation"
 
