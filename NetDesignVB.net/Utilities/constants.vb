@@ -45,10 +45,24 @@
     Public Const _PortNumber As String = "Prop.PortNumber"
     Public Const _Purpose As String = "Prop.Purpose"
     Public Const _RackLocation As String = "User.RackLocation"
+    Public Const _Version As String = "User.Version"
 
 
 
 
 #End Region
+
+
+#Region "Document names"
+
+    Public Const _Stencils As String = "Netdesign.vssx"
+    Public Const _HiddenStencils As String = "NetdesignHidden.vssx"
+
+
+
+
+#End Region
+
+
 
 End Module

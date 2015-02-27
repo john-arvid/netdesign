@@ -757,4 +757,25 @@ Module Utilities
 
     End Sub
 
+
+    Public Sub UpdateShapes()
+        Dim Document As Visio.Document = Globals.ThisAddIn.Application.ActiveDocument
+        Dim Page As Visio.Page
+        Dim Shape As Visio.Shape
+        Dim Master As Visio.Master
+        Dim MasterNames()() As String = New String(1)() {_Stencils, _HiddenStencils}
+        Dim Version As Integer()
+        Dim i, j As Integer
+
+        
+        For i = 0 To 2
+            MasterNames(i) = New String(9) {}
+            For j = 0 To 9
+                MasterNames(i)(j) = "Test"
+            Next
+        Next
+
+
+    End Sub
+
 End Module

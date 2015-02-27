@@ -24,6 +24,7 @@ Public Class ThisAddIn
             If Globals.ThisAddIn.Application.ActiveDocument.Pages.Count > 0 Then
                 For Each page As Visio.Page In Globals.ThisAddIn.Application.ActiveDocument.Pages
                     For Each shape As Visio.Shape In page.Shapes
+                        'Cache it! (it's done with this iteration)
                     Next
                 Next
             End If

@@ -69,4 +69,13 @@ Public Class Ribbon1
         My.Computer.Audio.PlaySystemSound(Media.SystemSounds.Beep)
         Globals.ThisAddIn.Application.EventList.Item(1).Enabled = True
     End Sub
+
+    Private Sub UpdateShapesButton_Click(sender As Object, e As RibbonControlEventArgs) Handles UpdateShapesButton.Click
+        Dim DialogResult As Integer = MsgBox("This will update all the shapes in this document with the new versions in the stencil. \n\nDo you wish to continue?", MsgBoxStyle.OkCancel)
+
+        If DialogResult Then
+            Call UpdateShapes()
+        End If
+
+    End Sub
 End Class
