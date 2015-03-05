@@ -262,37 +262,72 @@ Module Utilities
 
             ' Write the label with information from the two connected shapes (port's or OPC's)
             If IncomingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
-                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + _
+                    OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+
             ElseIf OutgoingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
-                wireShape.Text = OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                wireShape.Text = OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + _
+                    ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+
             ElseIf IncomingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
-                wireShape.Text = "PB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+                If IncomingNode.ContainingPage.Shapes("ThePage").Cells("User.ChassisType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
+                    wireShape.Text = "PB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+                Else
+                    wireShape.Text = "SB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+                End If
+
+
             ElseIf OutgoingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
-                wireShape.Text = OutgoingNode.Text + "/" + "PB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                If OutgoingNode.ContainingPage.Shapes("ThePage").Cells("User.ChassisType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
+                    wireShape.Text = OutgoingNode.Text + "/" + "PB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                Else
+                    wireShape.Text = OutgoingNode.Text + "/" + "SB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                End If
+
+
             Else
-                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + _
+                    ":" + OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + _
+                    IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             End If
+
         ElseIf wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "").Length = 1 Then
             IncomingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesIncoming2D, "")(0))
 
             ' Write the label with information from the two connected shapes (port's or OPC's)
             If IncomingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 wireShape.Text = "/" + IncomingNode.Text
+
             ElseIf IncomingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
-                wireShape.Text = "/" + "PB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                If IncomingNode.ContainingPage.Shapes("ThePage").Cells("User.ChassisType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
+                    wireShape.Text = "/" + "PB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                Else
+                    wireShape.Text = "/" + "SB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                End If
+
+
             Else
-                wireShape.Text = "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+                wireShape.Text = "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + _
+                    IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             End If
+
         ElseIf wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "").Length = 1 Then
             OutgoingNode = wireShape.ContainingPage.Shapes.ItemFromID(wireShape.GluedShapes(Visio.VisGluedShapesFlags.visGluedShapesOutgoing2D, "")(0))
 
             ' Write the label with information from the two connected shapes (port's or OPC's)
             If OutgoingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 wireShape.Text = OutgoingNode.Text + "/"
+
             ElseIf OutgoingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
-                wireShape.Text = "PB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
+                If OutgoingNode.ContainingPage.Shapes("ThePage").Cells("User.ChassisType").ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
+                    wireShape.Text = "PB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
+                Else
+                    wireShape.Text = "SB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
+                End If
+
             Else
-                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
+                wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + _
+                    OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
             End If
         End If
 

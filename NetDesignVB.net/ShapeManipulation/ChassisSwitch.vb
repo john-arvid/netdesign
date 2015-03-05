@@ -135,10 +135,16 @@
 
             chassisSwitchShape.Shapes.Item(i + 1).Hyperlinks("OffPageConnector").SubAddress = Page.Name
 
+            'Add cell to the page telling that it is part of the chassisSwitch / chassisProcessor
             If Not Page.Shapes("ThePage").CellExists("User.IsPartOfChassisSwitch", False) Then
                 Call Page.Shapes("ThePage").AddNamedRow(Visio.VisSectionIndices.visSectionUser, "IsPartOfChassisSwitch", 0)
+                Call Page.Shapes("ThePage").AddNamedRow(Visio.VisSectionIndices.visSectionUser, "ChassisType", 0)
             End If
             Page.Shapes("ThePage").Cells("User.IsPartOfChassisSwitch").FormulaForce = "=GUARD(1)"
+
+            Page.Shapes("ThePage").Cells("User.ChassisType").Formula = """" + chassisSwitchShape.Master.Name + """"
+
+
 
             'Drop the navigation shapes on the current page
             HomeShape = Page.Drop(HomeMaster, 0, 255)
