@@ -128,11 +128,12 @@
         chassisSwitchShape.CellsU("GlueType").Formula = 8
 
 
-
+        'Create all the pages and add all shapes on each page
         For i As Integer = 1 To form.TextBoxPages.Text
             Page = Globals.ThisAddIn.Application.ActiveDocument.Pages.Add()
             Page.Name = form.TextBoxName.Text + ":Page " + i.ToString()
 
+            'Set the hyperlink on the chassisPage
             chassisSwitchShape.Shapes.Item(i + 1).Hyperlinks("OffPageConnector").SubAddress = Page.Name
 
             'Add cell to the page telling that it is part of the chassisSwitch / chassisProcessor
@@ -180,6 +181,7 @@
 
                 BladeShape.Cells("PinX").Formula = "=" & CStr(pinX)
                 BladeShape.Cells("PinY").Formula = "=" & CStr(pinY)
+
 
             Next
             If i <> form.TextBoxPages.Text Then

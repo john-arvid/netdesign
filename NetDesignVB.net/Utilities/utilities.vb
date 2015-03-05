@@ -170,9 +170,9 @@ Module Utilities
             ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Port" Then
                 Call UpdatePort(shape, cell)
             ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Switch" Then
-                Call UpdateSwitch(shape, cell)
+                Call UpdateChassis(shape, cell)
             ElseIf shape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Chassis Processor" Then
-                Call UpdateSwitch(shape, cell)
+                Call UpdateChassis(shape, cell)
             End If
         End If
 
