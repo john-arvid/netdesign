@@ -296,7 +296,6 @@ Module Utilities
             End If
         End If
 
-
         'Add the shape text lock, force since it's guarded
         'wireShape.CellsU("LockTextEdit").FormulaForce = "GUARD(1)"
 
