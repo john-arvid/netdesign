@@ -265,6 +265,10 @@ Module Utilities
                 wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
             ElseIf OutgoingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 wireShape.Text = OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
+            ElseIf IncomingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
+                wireShape.Text = "PB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Text
+            ElseIf OutgoingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
+                wireShape.Text = OutgoingNode.Text + "/" + "PB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             Else
                 wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             End If
@@ -274,6 +278,8 @@ Module Utilities
             ' Write the label with information from the two connected shapes (port's or OPC's)
             If IncomingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 wireShape.Text = "/" + IncomingNode.Text
+            ElseIf IncomingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
+                wireShape.Text = "/" + "PB" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             Else
                 wireShape.Text = "/" + IncomingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + IncomingNode.Text
             End If
@@ -283,6 +289,8 @@ Module Utilities
             ' Write the label with information from the two connected shapes (port's or OPC's)
             If OutgoingNode.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "OPC" Then
                 wireShape.Text = OutgoingNode.Text + "/"
+            ElseIf OutgoingNode.Cells(_SwitchType).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
+                wireShape.Text = "PB" + OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
             Else
                 wireShape.Text = OutgoingNode.Cells(_SwitchName).ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Cells("User.UPosition").ResultStr(Visio.VisUnitCodes.visUnitsString) + ":" + OutgoingNode.Text + "/"
             End If

@@ -46,6 +46,7 @@
     Public Const _Purpose As String = "Prop.Purpose"
     Public Const _RackLocation As String = "User.RackLocation"
     Public Const _Version As String = "User.Version"
+    Public Const _SwitchType As String = "User.SwitchType"
 
 
 

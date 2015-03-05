@@ -35,7 +35,7 @@
     <PublishUrl>Z:\Deploy\</PublishUrl>
     <InstallUrl>http://www.stud.hig.no/~110223/publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.42</ApplicationVersion>
+    <ApplicationVersion>1.0.0.43</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
