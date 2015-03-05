@@ -125,6 +125,8 @@
                 Case "Processor"
                     Call HandleProcessor(shape)
 
+                Case "Blade"
+                    Call HandleBlade(shape)
             End Select
         End If
 

@@ -143,37 +143,42 @@
 
 
     ''' <summary>
-    ''' 
+    ''' Update the chassis data if a relevant cell has been updated
     ''' </summary>
-    ''' <param name="shape"></param>
-    ''' <param name="cell"></param>
-    ''' <remarks></remarks>
+    ''' <param name="shape">The chassis processor or switch shape</param>
+    ''' <param name="cell">The cell that has been changed</param>
+    ''' <remarks>Currently only for name and UPosition</remarks>
     Public Sub UpdateChassis(ByRef shape As Visio.Shape, ByRef cell As Visio.Cell)
         Dim ChassisPageShape As Visio.Shape
         Dim Page As Visio.Page
         Dim BladeShape As Visio.Shape
 
+        'Update the text of the chassis
         Call UpdateShapeName(shape, cell)
 
+        'If it is a different cell than the UPosition, then exit
         If cell IsNot shape.Cells(_UPosition) Then
             Exit Sub
         End If
 
+        'Go through every page in the chassis
         For Each ChassisPageShape In shape.Shapes
 
+            'If the chassispage has a hyperlink
             If ChassisPageShape.SectionExists(Visio.VisSectionIndices.visSectionHyperlink, 0) Then
+                'Set the page to the one that the hyperlink points to
                 Page = Globals.ThisAddIn.Application.ActiveDocument.Pages(ChassisPageShape.Hyperlinks("OffpageConnector").SubAddress)
 
+                'Go through every blade on the current page in the chassis
                 For Each BladeShape In Page.Shapes
                     If BladeShape.CellExists(_ShapeCategories, 0) AndAlso BladeShape.Cells(_ShapeCategories).ResultStr(Visio.VisUnitCodes.visUnitsString) = "Blade" Then
+
+                        'Copy the newly updated UPosition from the chassis to the blade
                         BladeShape.Cells(_UPosition).Formula = shape.Cells(_UPosition).Formula
                     End If
                 Next
-
-                'MsgBox(ChassisPageShape.Hyperlinks("OffPageConnector").SubAddress)
             End If
         Next
-
 
     End Sub
 End Module

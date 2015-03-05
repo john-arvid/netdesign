@@ -269,6 +269,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
+    <Compile Include="ShapeManipulation\Blade.vb" />
     <Compile Include="ShapeManipulation\ChassisSwitch.vb" />
     <Compile Include="ShapeManipulation\OPC.vb" />
     <Compile Include="ShapeManipulation\Copy of switch.vb" />

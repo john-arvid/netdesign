@@ -6,9 +6,9 @@
     ''' </summary>
     ''' <param name="switchShape">The switch shape</param>
     ''' <remarks></remarks>
-    Public Sub handleSwitch(ByRef switchShape As Visio.Shape)
+    Public Sub handleSwitch(ByRef switchShape As Visio.Shape, Optional ByRef isSwitch As Boolean = True)
 
-        If CountShapesOnPageByName("Rack") < 1 Then
+        If CountShapesOnPageByName("Rack") < 1 AndAlso isSwitch Then
             MsgBox("You have to drop a rack on the page first")
             switchShape.Delete()
             Exit Sub
