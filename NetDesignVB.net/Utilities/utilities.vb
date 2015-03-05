@@ -762,22 +762,74 @@ Module Utilities
         Dim Document As Visio.Document = Globals.ThisAddIn.Application.ActiveDocument
         Dim Page As Visio.Page
         Dim Shape As Visio.Shape
+        Dim Shape2 As Visio.Shape
         Dim Master As Visio.Master
-        Dim MasterNames()() As String = New String(1)() {_Stencils, _HiddenStencils}
+        Dim MasterNames(1, 99) As String
         Dim Version As Integer()
-        Dim i, j As Integer
+        Dim i As Integer = 0
 
         
-        For i = 0 To 2
-            MasterNames(i) = New String(9) {}
-            For j = 0 To 9
-                MasterNames(i)(j) = "Test"
+        For Each Master In Globals.ThisAddIn.Application.Documents.Item(_Stencils).Masters
+            MasterNames(0, i) = _Stencils
+            MasterNames(1, i) = Master.Name
+            i += 1
+        Next
+
+        For Each Master In Globals.ThisAddIn.Application.Documents.Item(_HiddenStencils).Masters
+            MasterNames(0, i) = _HiddenStencils
+            MasterNames(1, i) = Master.Name
+            i += 1
+        Next
+
+        'For Each Page In Globals.ThisAddIn.Application.ActiveDocument.Pages
+        '    For Each Shape In Page.Shapes
+        '        If Shape.CellExists("User.Version", 0) Then
+        '            For j As Integer = 0 To i
+        '                If Shape.Master IsNot Nothing AndAlso MasterNames(1, j) = Shape.Master.Name Then
+        '                    For Each Shape2 In Globals.ThisAddIn.Application.Documents.Item(MasterNames(0, j)).Masters.Item(MasterNames(1, j)).Shapes
+        '                        MsgBox(Shape2.ID.ToString() + "   ,   " + Shape2.Name)
+        '                        j = i
+        '                    Next
+        '                    'If Shape.Cells("User.Version").ResultInt("", 1) = Globals.ThisAddIn.Application.Documents.Item(MasterNames(0, j)).Masters.Item(MasterNames(1, j)).Shapes.ItemFromID(0).Cells("User.Version").ResultInt("", 1) Then
+        '                    '    MsgBox("JIPPI!")
+        '                    'End If
+        '                End If
+        '            Next
+        '        End If
+        '    Next
+        'Next
+
+        For Each UID As Integer In GetAllShapes(Document)
+
+        Next
+
+
+    End Sub
+
+    Public Function GetAllShapes(ByRef document As Visio.Document)
+
+        Dim ShapeUIDlist As New List(Of Integer)
+        Dim Page As Visio.Page
+        Dim Shape As Visio.Shape
+        Dim ChildShape As Visio.Shape
+
+        For Each Page In document.Pages
+
+            For Each Shape In Page.Shapes
+
+                If Shape.Shapes.Count > 0 Then
+                    For Each ChildShape In Shape.Shapes
+                        ShapeUIDlist.Add(ChildShape.UniqueID(1))
+                    Next
+                Else
+                    ShapeUIDlist.Add(Shape.UniqueID(1))
+                End If
+
             Next
         Next
 
 
-
-
-    End Sub
+        Return ShapeUIDlist
+    End Function
 
 End Module

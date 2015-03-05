@@ -140,9 +140,12 @@
             End If
             Page.Shapes("ThePage").Cells("User.IsPartOfChassisSwitch").FormulaForce = "=GUARD(1)"
 
+            'Drop the navigation shapes on the current page
             HomeShape = Page.Drop(HomeMaster, 0, 255)
-            NextPageShape = Page.Drop(NextPageMaster, 255, 0)
-            PreviousPageShape = Page.Drop(PreviousMaster, 0, 0)
+            NextPageShape = Page.Drop(NextPageMaster, 254, 0)
+            PreviousPageShape = Page.Drop(PreviousMaster, 1, 0)
+
+
 
             HomeShape.Hyperlinks("OffPageConnector").SubAddress = CurrentPage.Name
 
