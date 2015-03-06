@@ -213,7 +213,7 @@ Module Utilities
             If connecting Then
                 connections.ToSheet.CellsU("FillForegndTrans").FormulaForceU = "0%"
             Else
-                connections.ToSheet.CellsU("FillForegndTrans").FormulaForceU = "50%"
+                connections.ToSheet.CellsU("FillForegndTrans").FormulaForceU = "60%"
             End If
         End If
         Call ValidateWireConnection(connections)

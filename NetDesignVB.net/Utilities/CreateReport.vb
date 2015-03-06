@@ -19,6 +19,9 @@ Module Report
         Dim FromShape As Visio.Shape
         Dim FromShapeId As VariantType
 
+
+
+
         If Not System.IO.File.Exists(TextFile) Then
             System.IO.File.Create(TextFile).Dispose()
         End If

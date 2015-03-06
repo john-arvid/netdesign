@@ -29,6 +29,7 @@ Partial Class NDAskReport
         Me.CheckBoxConnectedWire = New System.Windows.Forms.CheckBox()
         Me.CheckBoxAllData = New System.Windows.Forms.CheckBox()
         Me.CheckedListBoxData = New System.Windows.Forms.CheckedListBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
@@ -98,11 +99,22 @@ Partial Class NDAskReport
         Me.CheckedListBoxData.Size = New System.Drawing.Size(382, 79)
         Me.CheckedListBoxData.TabIndex = 6
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(27, 174)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(475, 13)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "This will create a report, but first it will check the whole document for errors." & _
+    " This could take a while!"
+        '
         'NDAskReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(685, 255)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.CheckedListBoxData)
         Me.Controls.Add(Me.CheckBoxAllData)
         Me.Controls.Add(Me.CheckBoxConnectedWire)
@@ -123,4 +135,5 @@ Partial Class NDAskReport
     Friend WithEvents CheckBoxConnectedWire As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBoxAllData As System.Windows.Forms.CheckBox
     Friend WithEvents CheckedListBoxData As System.Windows.Forms.CheckedListBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class
