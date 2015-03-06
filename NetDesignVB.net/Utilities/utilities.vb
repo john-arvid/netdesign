@@ -794,7 +794,7 @@ Module Utilities
 
 
         ' Add stencils
-        Call openDocument(Globals.ThisAddIn.Application, My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRW)
+        Call openDocument(Globals.ThisAddIn.Application, My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Netdesign.vssx", Visio.VisOpenSaveArgs.visAddDocked + Visio.VisOpenSaveArgs.visOpenRO)
         Call openDocument(Globals.ThisAddIn.Application, My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\NetdesignHidden.vssx", Visio.VisOpenSaveArgs.visOpenHidden + Visio.VisOpenSaveArgs.visOpenRO)
 
     End Sub

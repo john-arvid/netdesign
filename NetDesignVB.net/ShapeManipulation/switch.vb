@@ -253,17 +253,17 @@
                 newport.Cells(_Purpose).Formula = """" + purposeOfPort + """"
                 newport.Cells(_PortNumber).Formula = """" + CStr(Count) + """"
 
-                ' Count to the next port
-                Count = Count + 1
 
                 ' Change the position for the next port
                 PointX = PointX + 2 * PortSize
 
                 ' Change the text of the port
                 newport.Cells("LockTextEdit").Formula = 0
-                newport.Text = newport.Cells("User.PortTitlePrefix").ResultStr(Visio.VisUnitCodes.visUnitsString) + j.ToString()
+                newport.Text = newport.Cells("User.PortTitlePrefix").ResultStr(Visio.VisUnitCodes.visUnitsString) + Count.ToString()
                 newport.Cells("LockTextEdit").Formula = 1
 
+                ' Count to the next port
+                Count = Count + 1
 
                 ' Add the port to the list
                 portList.Add(newport)
